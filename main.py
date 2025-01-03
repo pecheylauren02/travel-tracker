@@ -53,22 +53,26 @@ def prompt_confirmation(action):
 # Add a country to a specific category
 def add_country():
     print("\nYou are about to add a country to one of your lists. How exciting!")
-    print("\nPlease enter the category you would like to enter below:")
-    category = input("Type either 'visited' or 'wishlist' to continue: ").strip().lower()
-    if category not in travel_data:
-        print("Invalid category. Use 'visited' or 'wishlist'.")
-        return
+    
+    while True:
+        print("\nPlease enter the category you would like to enter below:")
+        category = input("Type either 'visited' or 'wishlist' to continue: ").strip().lower()
+        
+        if category not in travel_data:
+            print("Invalid category. Please use 'visited' or 'wishlist'.")
+        else:
+            break  # Exit loop when a valid category is entered
     
     # Loop until a valid country is entered
     while True:
-        print("\nWelldone! Now enter the country you'd like to add to your chosen list!")
+        print("\nWell done! Now enter the country you'd like to add to your chosen list!")
         print("\nEnsure you spell the country correctly and with a capital letter.")
         country = input("Country name: ").strip()
         
         # Check if the country is in the valid countries list
         if country not in valid_countries:
             print("Oops! You have either entered an invalid country or have spelled it incorrectly!")
-            print("Please enter a valid country from the list. E.g. Germany not German or germany.")
+            print("Please enter a valid country from the list. E.g. Germany, not German or germany.")
         else:
             break  # Exit the loop if the country is valid
     
@@ -107,12 +111,41 @@ def add_country():
     travel_data[category].append({"country": country, "date": date})
     print(f"Well done! You have added {country} to your {category.capitalize()} list.")
 
+    # After successfully adding a country, ask if the user wants to add another
+    while True:
+        add_another = input("\nWould you like to add another country? (yes/no): ").strip().lower()
+        
+        if add_another == 'yes':
+            # If yes, call add_country again to continue the process without category selection
+            add_country()  # Recursively call the add_country function
+            return
+        elif add_another == 'no':
+            # If no, ask if the user wants to go back to the main menu
+            go_to_menu = input("\nWould you like to go back to the main menu? (yes/no): ").strip().lower()
+            
+            if go_to_menu == 'yes':
+                display_menu()  # Go back to the main menu
+                return
+            elif go_to_menu == 'no':
+                # If no, exit the application
+                exit_confirmation = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
+                
+                if exit_confirmation == 'yes':
+                    print("Thank you for using our application! Come back soon and add more to your exciting list!")
+                    exit()  # Exit the program
+                else:
+                    # If no, return to the menu
+                    display_menu()  # Go back to the main menu
+                    return
+        else:
+            print("Oops, that was an invalid input. Please answer 'yes' or 'no'.")
+
 # Delete a country from a specific category
 def delete_country():
-    print("\nYou are about to delete a country from one of your lists.")
+    print("\nWARNING: You are about to delete a country from one of your lists.")
     category = input("Enter the category you wish to delete it from (visited/wishlist): ").strip().lower()
     if category not in travel_data:
-        print("Invalid category. Use 'visited' or 'wishlist'.")
+        print("Oops, that was an invalid category. Enter either 'visited' or 'wishlist'.")
         return
     country = input("Enter the country name to delete: ").strip()
     for record in travel_data[category]:
