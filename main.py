@@ -32,24 +32,12 @@ travel_data = {
     "wishlist": []
 }
 
-# Sample data for testing
-sample_data = [
-    {"country": "France", "date": "2023-05-10"},
-    {"country": "Japan", "date": "2022-12-15"},
-    {"country": "Australia", "date": ""}
-]
-travel_data["visited"].extend(sample_data)
-
-print("Travel Tracker Initialized!")
-
+print("Welcome to the Travel Tracker Application!")
+print("This app allows you to keep track of the countries you've visited and those you want to visit.")
 
 # Function to display the main menu
 def display_menu():
-    print("\nWelcome to the Travel Tracker Application\n")
-    print("This app allows you to keep track of all of the countries you've already visited,")
-    print("as well as all of the countries you'd like to add to your Wishlist!")
-    print("\nPlease enter an option (1-6) from the menu below:")
-    print("\n--- Travel Tracker Menu ---\n")
+    print("\n--- Travel Tracker Menu ---")
     print("1. Add a country")
     print("2. Delete a country")
     print("3. Search for a country")
@@ -57,20 +45,14 @@ def display_menu():
     print("5. Display all records")
     print("6. Exit")
 
-display_menu()
-
 # Function to confirm an action
 def prompt_confirmation(action):
     confirmation = input(f"Are you sure you want to {action}? (yes/no): ").strip().lower()
     return confirmation == 'yes'
 
 # Add a country to a specific category
-travel_data = {
-    "visited": [],
-    "wishlist": []
-}
-
-def add_country(travel_data):
+def add_country():
+    print("\nYou chose to add a country.")
     category = input("Enter the category (visited/wishlist): ").strip().lower()
     if category not in travel_data:
         print("Invalid category. Use 'visited' or 'wishlist'.")
@@ -116,14 +98,11 @@ def add_country(travel_data):
     
     # Add the country to the chosen category
     travel_data[category].append({"country": country, "date": date})
-    print(f"Welldone! You have added {country} to {category.capitalize()} list.")
-    print(f"Would you like to add another country to your {category.capitalize()} list?")
-
-# Example of calling the function
-add_country(travel_data)
+    print(f"Well done! You have added {country} to your {category.capitalize()} list.")
 
 # Delete a country from a specific category
-def delete_country(travel_data):
+def delete_country():
+    print("\nYou chose to delete a country.")
     category = input("Enter the category (visited/wishlist): ").strip().lower()
     if category not in travel_data:
         print("Invalid category. Use 'visited' or 'wishlist'.")
@@ -138,7 +117,7 @@ def delete_country(travel_data):
     print(f"{country} not found in {category.capitalize()} list.")
 
 # Search for a country in both categories
-def search_country(travel_data):
+def search_country():
     country = input("Enter the country name to search: ").strip()
     found = False
     for category, records in travel_data.items():
@@ -150,7 +129,8 @@ def search_country(travel_data):
         print(f"{country} not found in any list.")
 
 # Sort and display records
-def sort_records(travel_data):
+def sort_records():
+    print("\nYou chose to sort records.")
     category = input("Enter the category to sort (visited/wishlist): ").strip().lower()
     if category not in travel_data:
         print("Invalid category. Use 'visited' or 'wishlist'.")
@@ -159,10 +139,10 @@ def sort_records(travel_data):
     print(f"Sorted {category.capitalize()} list alphabetically.")
 
 # Display all records
-def display_records(travel_data):
-    print("\\n--- Travel Records ---")
+def display_records():
+    print("\n--- Travel Records ---")
     for category, records in travel_data.items():
-        print(f"\\n{category.capitalize()} list:")
+        print(f"\n{category.capitalize()} list:")
         for record in records:
             print(f"- {record['country']} (Date: {record['date']})")
 
@@ -172,21 +152,20 @@ def travel_tracker_app():
         display_menu()
         choice = input("Choose an option (1-6): ").strip()
         if choice == "1":
-            add_country(travel_data)
+            add_country()
         elif choice == "2":
-            delete_country(travel_data)
+            delete_country()
         elif choice == "3":
-            search_country(travel_data)
+            search_country()
         elif choice == "4":
-            sort_records(travel_data)
+            sort_records()
         elif choice == "5":
-            display_records(travel_data)
+            display_records()
         elif choice == "6":
-            if prompt_confirmation("exit the application"):
-                print("Exiting Travel Tracker. Goodbye!")
-                break
+            print("Exiting the Travel Tracker Application.")
+            break
         else:
-            print("Invalid option. Please choose a valid option.")
+            print("Invalid choice, please try again.")
 
-# Run the app
+# Start the application
 travel_tracker_app()
