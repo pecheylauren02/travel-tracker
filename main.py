@@ -32,16 +32,16 @@ travel_data = {
     "wishlist": []
 }
 
-print("Welcome to the Travel Tracker Application!")
-print("This app allows you to keep track of the countries you've visited and those you want to visit.")
+print("\nWelcome to the Travel Tracker Application!")
+print("\nThis app allows you to keep track of the countries you've visited and those you want to visit.")
 
 # Function to display the main menu
 def display_menu():
-    print("\n--- Travel Tracker Menu ---")
+    print("\n--- Travel Tracker Menu ---\n")
     print("1. Add a country")
     print("2. Delete a country")
     print("3. Search for a country")
-    print("4. Sort and display records")
+    print("4. Sort records alphabetically")
     print("5. Display all records")
     print("6. Exit")
 
@@ -56,10 +56,10 @@ def add_country():
     
     while True:
         print("\nPlease enter the category you would like to enter below:")
-        category = input("Type either 'visited' or 'wishlist' to continue: ").strip().lower()
+        category = input("\nType either 'visited' or 'wishlist' to continue: ").strip().lower()
         
         if category not in travel_data:
-            print("Invalid category. Please use 'visited' or 'wishlist'.")
+            print("\nInvalid category. Please use 'visited' or 'wishlist'.")
         else:
             break  # Exit loop when a valid category is entered
     
@@ -67,49 +67,49 @@ def add_country():
     while True:
         print("\nWell done! Now enter the country you'd like to add to your chosen list!")
         print("\nEnsure you spell the country correctly and with a capital letter.")
-        country = input("Country name: ").strip()
+        country = input("\nCountry name: ").strip()
         
         # Check if the country is in the valid countries list
         if country not in valid_countries:
-            print("Oops! You have either entered an invalid country or have spelled it incorrectly!")
-            print("Please enter a valid country from the list. E.g. Germany, not German or germany.")
+            print("\nOops! You have either entered an invalid country or have spelled it incorrectly!")
+            print("\nPlease enter a valid country from the list. E.g. Germany, not German or germany.")
         else:
             break  # Exit the loop if the country is valid
     
     # Validate date format, non-empty input, and future date
     while True:
         print("\nGreat job! Now enter the date you travelled there!")
-        date = input("Enter the travel date (dd-mm-yyyy): ").strip()
+        date = input("\nEnter the travel date (dd-mm-yyyy): ").strip()
         
         # Check if the date field is empty
         if not date:
-            print("You have not entered anything yet. Please enter the date as dd-mm-yyyy.")
+            print("\nYou have not entered anything yet. Please enter the date as dd-mm-yyyy.")
             continue
         
         # Regular expression to match date in dd-mm-yyyy format
         if not re.match(r'^\d{2}-\d{2}-\d{4}$', date):
-            print("Uh Oh! The date you entered is wrong! Please enter the date in dd-mm-yyyy format.")
-            print("For example: 12-12-2020")
+            print("\nUh Oh! The date you entered is wrong! Please enter the date in dd-mm-yyyy format.")
+            print("\nFor example: 12-12-2020")
             continue
         
         # Convert input date to a datetime object for comparison
         try:
             date_obj = datetime.strptime(date, "%d-%m-%Y")
         except ValueError:
-            print("Uh Oh! The date you entered is wrong! Please enter the date in dd-mm-yyyy format.")
-            print("For example: 12-12-2020")
+            print("\nUh Oh! The date you entered is wrong! Please enter the date in dd-mm-yyyy format.")
+            print("\nFor example: 12-12-2020")
             continue
         
         # Check if the entered date is in the future
         if date_obj > datetime.now():
-            print("As much as we love time travel, the date cannot be in the future. Please enter a date from the past!")
+            print("\nAs much as we love time travel, the date cannot be in the future. Please enter a date from the past!")
             continue
         
         break  # Exit loop when valid date is entered
     
     # Add the country to the chosen category
     travel_data[category].append({"country": country, "date": date})
-    print(f"Well done! You have added {country} to your {category.capitalize()} list.")
+    print(f"\nWell done! You have added {country} to your {category.capitalize()} list.")
 
     # After successfully adding a country, ask if the user wants to add another
     while True:
@@ -131,53 +131,87 @@ def add_country():
                 exit_confirmation = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
                 
                 if exit_confirmation == 'yes':
-                    print("Thank you for using our application! Come back soon and add more to your exciting list!")
+                    print("\nThank you for using our application! Come back soon and add more to your exciting list!")
                     exit()  # Exit the program
                 else:
                     # If no, return to the menu
                     display_menu()  # Go back to the main menu
                     return
         else:
-            print("Oops, that was an invalid input. Please answer 'yes' or 'no'.")
+            print("\nOops, that was an invalid input. Please answer 'yes' or 'no'.")
 
 # Delete a country from a specific category
 def delete_country():
     print("\nWARNING: You are about to delete a country from one of your lists.")
-    category = input("Enter the category you wish to delete it from (visited/wishlist): ").strip().lower()
-    if category not in travel_data:
-        print("Oops, that was an invalid category. Enter either 'visited' or 'wishlist'.")
-        return
-    country = input("Enter the country name to delete: ").strip()
+    
+    while True:
+        category = input("\nEnter the category you wish to delete it from (visited/wishlist): ").strip().lower()
+        
+        if category not in travel_data:
+            print("\nOops, that was an invalid category. Enter either 'visited' or 'wishlist'.")
+        else:
+            break  # Exit loop when valid category is entered
+    
+    country = input("\nEnter the country you wish to delete: ").strip()
+    
     for record in travel_data[category]:
         if record["country"].lower() == country.lower():
             if prompt_confirmation(f"delete {country} from {category}"):
                 travel_data[category].remove(record)
-                print(f"Deleted {country} from {category.capitalize()} list.")
-            return
+                print(f"\nSuccessfully deleted {country} from {category.capitalize()} list.")
+                
+                # After successfully deleting, ask the user if they want to delete another country
+                while True:
+                    delete_another = input("\nWould you like to delete another country? (yes/no): ").strip().lower()
+                    
+                    if delete_another == 'yes':
+                        delete_country()  # Recursively call the delete_country function
+                        return
+                    elif delete_another == 'no':
+                        # If no, ask if the user wants to go back to the main menu
+                        go_to_menu = input("\nWould you like to go back to the main menu? (yes/no): ").strip().lower()
+                        
+                        if go_to_menu == 'yes':
+                            display_menu()  # Go back to the main menu
+                            return
+                        elif go_to_menu == 'no':
+                            # If no, exit the application
+                            exit_confirmation = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
+                            
+                            if exit_confirmation == 'yes':
+                                print("\nThank you for using our application! Come back soon and add more to your exciting list!")
+                                exit()  # Exit the program
+                            else:
+                                # If no, return to the menu
+                                display_menu()  # Go back to the main menu
+                                return
+                    else:
+                        print("\nInvalid input. Please answer 'yes' or 'no'.")
+                return
     print(f"{country} not found in {category.capitalize()} list.")
 
 # Search for a country in both categories
 def search_country():
-    country = input("Enter the country name you wish to search for: ").strip()
+    country = input("\nEnter the country name you wish to search for: ").strip()
     found = False
     for category, records in travel_data.items():
         for record in records:
             if country.lower() in record["country"].lower():
-                print(f"Yay! We found it in your {category.capitalize()} list: {record['country']} (Date: {record['date']})")
+                print(f"\nYay! We found it in your {category.capitalize()} list: {record['country']} (Date: {record['date']})")
                 found = True
     if not found:
-        print(f"It appears that {country} is not in any of your lists.")
-        response = input(f"Would you like to add {country} to one of your lists? (yes/no): ").strip().lower()
+        print(f"\nIt appears that {country} is not in any of your lists.")
+        response = input(f"\nWould you like to add {country} to one of your lists? (yes/no): ").strip().lower()
         if response == 'yes':
             add_country()
         else:
-            response = input("Would you like to return to the main menu? (yes/no): ").strip().lower()
+            response = input("\nWould you like to return to the main menu? (yes/no): ").strip().lower()
             if response == 'yes':
                 display_menu()
             else:
-                response = input("Would you like to exit the application? (yes/no): ").strip().lower()
+                response = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
                 if response == 'yes':
-                    print("Exiting the Travel Tracker Application.")
+                    print("Thank you for using our application! Come back soon and add more to your exciting list!")
                     exit()
                 else:
                     display_menu()
@@ -185,9 +219,9 @@ def search_country():
 # Sort and display records
 def sort_records():
     print("\nYou chose to sort records.")
-    category = input("Enter the category to sort (visited/wishlist): ").strip().lower()
+    category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
     if category not in travel_data:
-        print("Invalid category. Use 'visited' or 'wishlist'.")
+        print("\nInvalid category. Use 'visited' or 'wishlist'.")
         return
     travel_data[category].sort(key=lambda x: x["country"].lower())
     print(f"Sorted {category.capitalize()} list alphabetically.")
@@ -204,7 +238,7 @@ def display_records():
 def travel_tracker_app():
     while True:
         display_menu()
-        choice = input("Choose an option (1-6): ").strip()
+        choice = input("\nChoose an option from the list above (1-6): ").strip()
         if choice == "1":
             add_country()
         elif choice == "2":
