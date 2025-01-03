@@ -16,15 +16,22 @@ travel_data["visited"].extend(sample_data)
 
 print("Travel Tracker Initialized!")
 
+
 # Function to display the main menu
 def display_menu():
-    print("--- Travel Tracker Menu ---")
+    print("\nWelcome to the Travel Tracker Application\n")
+    print("This app allows you to keep track of all of the countries you've already visited,")
+    print("as well as all of the countries you'd like to add to your Wishlist!")
+    print("\nPlease enter an option (1-6) from the menu below:")
+    print("\n--- Travel Tracker Menu ---\n")
     print("1. Add a country")
     print("2. Delete a country")
     print("3. Search for a country")
     print("4. Sort and display records")
     print("5. Display all records")
     print("6. Exit")
+
+display_menu()
 
 # Function to confirm an action
 def prompt_confirmation(action):
