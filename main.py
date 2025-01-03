@@ -1,3 +1,4 @@
+import os
 import json
 import re
 from datetime import datetime
@@ -35,6 +36,9 @@ travel_data = {
 print("\nWelcome to the Travel Tracker Application!")
 print("\nThis app allows you to keep track of the countries you've visited and those you want to visit.")
 
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 # Function to display the main menu
 def display_menu():
     print("\n--- Travel Tracker Menu ---\n")
@@ -52,6 +56,7 @@ def prompt_confirmation(action):
 
 # Add a country to a specific category
 def add_country():
+    clear_terminal()
     print("\nYou are about to add a country to one of your lists. How exciting!")
     
     while True:
@@ -142,6 +147,7 @@ def add_country():
 
 # Delete a country from a specific category
 def delete_country():
+    clear_terminal()
     print("\nWARNING: You are about to delete a country from one of your lists.")
     
     while True:
@@ -192,6 +198,7 @@ def delete_country():
 
 # Search for a country in both categories
 def search_country():
+    clear_terminal()
     country = input("\nEnter the country name you wish to search for: ").strip()
     found = False
     for category, records in travel_data.items():
@@ -218,6 +225,7 @@ def search_country():
 
 # Sort and display records
 def sort_records():
+    clear_terminal()
     print("\nYou chose to sort records.")
     category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
     if category not in travel_data:
@@ -257,3 +265,6 @@ def travel_tracker_app():
 
 # Start the application
 travel_tracker_app()
+
+if __name__ == "__main__":
+    display_menu()  
