@@ -134,7 +134,20 @@ def search_country():
                 found = True
     if not found:
         print(f"It appears that {country} is not in any of your lists.")
-        print(f"Would you like to add {country} to one of your lists?")
+        response = input(f"Would you like to add {country} to one of your lists? (yes/no): ").strip().lower()
+        if response == 'yes':
+            add_country()
+        else:
+            response = input("Would you like to return to the main menu? (yes/no): ").strip().lower()
+            if response == 'yes':
+                display_menu()
+            else:
+                response = input("Would you like to exit the application? (yes/no): ").strip().lower()
+                if response == 'yes':
+                    print("Exiting the Travel Tracker Application.")
+                    exit()
+                else:
+                    display_menu()
 
 # Sort and display records
 def sort_records():
