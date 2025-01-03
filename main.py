@@ -44,16 +44,49 @@ travel_data = {
     "wishlist": []
 }
 
+import re
+from datetime import datetime
+
 def add_country(travel_data):
     category = input("Enter the category (visited/wishlist): ").strip().lower()
     if category not in travel_data:
         print("Invalid category. Use 'visited' or 'wishlist'.")
         return
+    
     country = input("Enter the country name: ").strip()
-    date = input("Enter the travel date (dd-mm-yyyy): ").strip()
+    
+    # Validate date format, non-empty input, and future date
+    while True:
+        date = input("Enter the travel date (dd-mm-yyyy): ").strip()
+        
+        # Check if the date field is empty
+        if not date:
+            print("Date cannot be empty. Please enter a valid date.")
+            continue
+        
+        # Regular expression to match date in dd-mm-yyyy format
+        if not re.match(r'^\d{2}-\d{2}-\d{4}$', date):
+            print("Invalid date format. Please enter the date in dd-mm-yyyy format.")
+            continue
+        
+        # Convert input date to a datetime object for comparison
+        try:
+            date_obj = datetime.strptime(date, "%d-%m-%Y")
+        except ValueError:
+            print("Invalid date format. Please enter the date in dd-mm-yyyy format.")
+            continue
+        
+        # Check if the entered date is in the future
+        if date_obj > datetime.now():
+            print("The date cannot be in the future. Please enter a valid date.")
+            continue
+        
+        break  # Exit loop when valid date is entered
+    
     travel_data[category].append({"country": country, "date": date})
     print(f"Added {country} to {category.capitalize()} list.")
 
+# Example of calling the function
 add_country(travel_data)
 
 # Delete a country from a specific category
