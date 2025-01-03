@@ -52,46 +52,53 @@ def prompt_confirmation(action):
 
 # Add a country to a specific category
 def add_country():
-    print("\nYou chose to add a country.")
-    category = input("Enter the category (visited/wishlist): ").strip().lower()
+    print("\nYou are about to add a country to one of your lists. How exciting!")
+    print("\nPlease enter the category you would like to enter below:")
+    category = input("Type either 'visited' or 'wishlist' to continue: ").strip().lower()
     if category not in travel_data:
         print("Invalid category. Use 'visited' or 'wishlist'.")
         return
     
     # Loop until a valid country is entered
     while True:
-        country = input("Enter the country name: ").strip()
+        print("\nWelldone! Now enter the country you'd like to add to your chosen list!")
+        print("\nEnsure you spell the country correctly and with a capital letter.")
+        country = input("Country name: ").strip()
         
         # Check if the country is in the valid countries list
         if country not in valid_countries:
-            print("Invalid country name. Please enter a valid country from the list.")
+            print("Oops! You have either entered an invalid country or have spelled it incorrectly!")
+            print("Please enter a valid country from the list. E.g. Germany not German or germany.")
         else:
             break  # Exit the loop if the country is valid
     
     # Validate date format, non-empty input, and future date
     while True:
+        print("\nGreat job! Now enter the date you travelled there!")
         date = input("Enter the travel date (dd-mm-yyyy): ").strip()
         
         # Check if the date field is empty
         if not date:
-            print("Date cannot be empty. Please enter a valid date.")
+            print("You have not entered anything yet. Please enter the date as dd-mm-yyyy.")
             continue
         
         # Regular expression to match date in dd-mm-yyyy format
         if not re.match(r'^\d{2}-\d{2}-\d{4}$', date):
-            print("Invalid date format. Please enter the date in dd-mm-yyyy format.")
+            print("Uh Oh! The date you entered is wrong! Please enter the date in dd-mm-yyyy format.")
+            print("For example: 12-12-2020")
             continue
         
         # Convert input date to a datetime object for comparison
         try:
             date_obj = datetime.strptime(date, "%d-%m-%Y")
         except ValueError:
-            print("Invalid date format. Please enter the date in dd-mm-yyyy format.")
+            print("Uh Oh! The date you entered is wrong! Please enter the date in dd-mm-yyyy format.")
+            print("For example: 12-12-2020")
             continue
         
         # Check if the entered date is in the future
         if date_obj > datetime.now():
-            print("The date cannot be in the future. Please enter a valid date.")
+            print("As much as we love time travel, the date cannot be in the future. Please enter a date from the past!")
             continue
         
         break  # Exit loop when valid date is entered
@@ -102,8 +109,8 @@ def add_country():
 
 # Delete a country from a specific category
 def delete_country():
-    print("\nYou chose to delete a country.")
-    category = input("Enter the category (visited/wishlist): ").strip().lower()
+    print("\nYou are about to delete a country from one of your lists.")
+    category = input("Enter the category you wish to delete it from (visited/wishlist): ").strip().lower()
     if category not in travel_data:
         print("Invalid category. Use 'visited' or 'wishlist'.")
         return
@@ -118,15 +125,16 @@ def delete_country():
 
 # Search for a country in both categories
 def search_country():
-    country = input("Enter the country name to search: ").strip()
+    country = input("Enter the country name you wish to search for: ").strip()
     found = False
     for category, records in travel_data.items():
         for record in records:
             if country.lower() in record["country"].lower():
-                print(f"Found in {category.capitalize()} list: {record['country']} (Date: {record['date']})")
+                print(f"Yay! We found it in your {category.capitalize()} list: {record['country']} (Date: {record['date']})")
                 found = True
     if not found:
-        print(f"{country} not found in any list.")
+        print(f"It appears that {country} is not in any of your lists.")
+        print(f"Would you like to add {country} to one of your lists?")
 
 # Sort and display records
 def sort_records():
