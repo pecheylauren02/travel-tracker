@@ -39,15 +39,19 @@ print("\nThis app allows you to keep track of the countries you've visited and t
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-# Function to display the main menu
+# Function to display the main menu with added formatting
 def display_menu():
-    print("\n--- Travel Tracker Menu ---\n")
-    print("1. Add a country")
-    print("2. Delete a country")
-    print("3. Search for a country")
-    print("4. Sort records alphabetically")
-    print("5. Display all records")
-    print("6. Exit")
+    menu_border = "=" * 40
+    print(menu_border)
+    print("\033[1;34m" + "--- Travel Tracker Menu ---" + "\033[0m")  # Blue text for the title
+    print(menu_border)
+    print("\033[1;32m" + "1. Add a country" + "\033[0m")  # Green text for options
+    print("\033[1;33m" + "2. Delete a country" + "\033[0m")  # Yellow text for options
+    print("\033[1;35m" + "3. Search for a country" + "\033[0m")  # Magenta text for options
+    print("\033[1;36m" + "4. Sort records alphabetically" + "\033[0m")  # Cyan text for options
+    print("\033[1;37m" + "5. Display all records" + "\033[0m")  # White text for options
+    print("\033[1;31m" + "6. Exit" + "\033[0m")  # Red text for the exit option
+    print(menu_border)
 
 # Function to confirm an action
 def prompt_confirmation(action):
