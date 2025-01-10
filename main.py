@@ -239,11 +239,37 @@ def sort_records():
 
 # Display all records
 def display_records():
-    print("\n--- Travel Records ---")
-    for category, records in travel_data.items():
-        print(f"\n{category.capitalize()} list:")
-        for record in records:
-            print(f"- {record['country']} (Date: {record['date']})")
+    clear_terminal()
+    print("\nHere are your travel records:")
+
+    # Display visited records
+    if travel_data["visited"]:
+        print("\n\033[1;32mVisited Countries:\033[0m")
+        for record in travel_data["visited"]:
+            print(f"- {record['country']} (Visited on: {record['date']})")
+    else:
+        print("\n\033[1;32mVisited Countries:\033[0m No records yet!")
+
+    # Display wishlist records
+    if travel_data["wishlist"]:
+        print("\n\033[1;33mWishlist Countries:\033[0m")
+        for record in travel_data["wishlist"]:
+            print(f"- {record['country']} (Planned for: {record['date']})")
+    else:
+        print("\n\033[1;33mWishlist Countries:\033[0m No records yet!")
+
+    # Prompt for adding more countries
+    while True:
+        choice = input("\nWould you like to add more countries to your records? (yes/no): ").strip().lower()
+        if choice == "yes":
+            add_country()
+            return
+        elif choice == "no":
+            print("\nReturning to the main menu...")
+            break
+        else:
+            print("\nInvalid input. Please answer 'yes' or 'no'.")
+
 
 # Main application logic
 def travel_tracker_app():
