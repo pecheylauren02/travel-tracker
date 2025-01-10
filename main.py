@@ -125,27 +125,26 @@ def add_country():
         add_another = input("\nWould you like to add another country? (yes/no): ").strip().lower()
         
         if add_another == 'yes':
-            # If yes, call add_country again to continue the process without category selection
             add_country()  # Recursively call the add_country function
             return
         elif add_another == 'no':
-            # If no, ask if the user wants to go back to the main menu
-            go_to_menu = input("\nWould you like to go back to the main menu? (yes/no): ").strip().lower()
-            
-            if go_to_menu == 'yes':
-                display_menu()  # Go back to the main menu
-                return
-            elif go_to_menu == 'no':
-                # If no, exit the application
-                exit_confirmation = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
+            while True:
+                go_to_menu = input("\nWould you like to go back to the main menu? (yes/no): ").strip().lower()
                 
-                if exit_confirmation == 'yes':
-                    print("\nThank you for using our application! Come back soon and add more to your exciting list!")
-                    exit()  # Exit the program
+                if go_to_menu == 'yes':
+                    return  # Return to avoid multiple menu displays
+                elif go_to_menu == 'no':
+                    exit_confirmation = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
+                    
+                    if exit_confirmation == 'yes':
+                        print("\nThank you for using our application! Come back soon and add more to your exciting list!")
+                        exit()  # Exit the program
+                    elif exit_confirmation == 'no':
+                        break
+                    else:
+                        print("\nInvalid input. Please enter 'yes' or 'no'.")
                 else:
-                    # If no, return to the menu
-                    display_menu()  # Go back to the main menu
-                    return
+                    print("\nInvalid input. Please enter 'yes' or 'no'.")
         else:
             print("\nOops, that was an invalid input. Please answer 'yes' or 'no'.")
 
