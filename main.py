@@ -58,7 +58,7 @@ def prompt_confirmation(action):
     confirmation = input(f"Are you sure you want to {action}? (yes/no): ").strip().lower()
     return confirmation == 'yes'
 
-# Add a country to a specific category
+
 def add_country():
     clear_terminal()
     print("\nYou are about to add a country to one of your lists. How exciting!")
@@ -88,9 +88,8 @@ def add_country():
             print(f"\nWell done! You have added {country} to your {category.capitalize()} countries.")
             break  # Exit the loop if the country is valid
     
-    # Validate date format, non-empty input, and future date
+    # Validate date format, non-empty input, and future/past date based on category
     while True:
-        print("\nGreat job! Now enter the date you travelled there!")
         date = input("\nEnter the travel date (dd-mm-yyyy): ").strip()
         
         # Check if the date field is empty
@@ -112,15 +111,20 @@ def add_country():
             print("\nFor example: 12-12-2020")
             continue
         
-        # Check if the entered date is in the future
-        if date_obj > datetime.now():
-            print("\nAs much as we love time travel, the date cannot be in the future. Please enter a date from the past!")
+        # Check if the entered date is valid for the category
+        if category == "wishlist" and date_obj <= datetime.now():
+            print("\nPlease note: You can only add countries to your wishlist with a future date!")
+            continue
+        elif category == "visited" and date_obj > datetime.now():
+            print("\nYou cannot enter a future date for a visited country. Please enter a date in the past.")
             continue
         
         break  # Exit loop when valid date is entered
     
     # Add the country to the chosen category
     travel_data[category].append({"country": country, "date": date})
+
+    print(f"\nSuccess! You have added {country} to your {category.capitalize()} list on {date}.")
 
     # Prompt to add another country
     while True:
@@ -134,6 +138,7 @@ def add_country():
             return
         else:
             print("\nInvalid input. Please answer 'yes' or 'no'.")
+
 
 # Delete a country from a specific category
 def delete_country():
