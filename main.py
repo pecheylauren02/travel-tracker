@@ -72,6 +72,21 @@ def add_country():
         else:
             break  # Exit loop when a valid category is entered
     
+    # Ask for the user's age before entering the date
+    while True:
+        age_input = input("\nPlease enter your age: ").strip()
+        
+        if not age_input.isdigit() or int(age_input) <= 0:
+            print("\nPlease enter a valid age.")
+        else:
+            age = int(age_input)
+            break  # Exit loop when a valid age is entered
+    
+    # Calculate the minimum date based on the user's age (e.g., assuming they are at least this old when visiting a country)
+    today = datetime.now()
+    min_year = today.year - age
+    min_date = datetime(min_year, today.month, today.day)
+    
     # Loop until a valid country is entered
     while True:
         country = input("\nCountry name: ").strip()
@@ -87,7 +102,7 @@ def add_country():
             print(f"\nWell done! You have added {country} to your {category.capitalize()} countries.")
             break  # Exit the loop if the country is valid
     
-    # Validate date format, non-empty input, and future/past date based on category
+    # Validate date format, non-empty input, and ensure the date is after the minimum date based on age
     while True:
         date = input("\nEnter the travel date (dd-mm-yyyy): ").strip()
         
@@ -110,8 +125,11 @@ def add_country():
             print("\nFor example: 12-12-2020")
             continue
         
-        # Check if the entered date is valid for the category
-        if category == "wishlist" and date_obj <= datetime.now():
+        # Check if the entered date is valid for the category and age
+        if date_obj < min_date:
+            print(f"\nYou cannot enter a date before you were born, which is {min_date.strftime('%d-%m-%Y')}.")
+            continue
+        elif category == "wishlist" and date_obj <= datetime.now():
             print("\nPlease note: You can only add countries to your wishlist with a future date!")
             continue
         elif category == "visited" and date_obj > datetime.now():
@@ -137,6 +155,7 @@ def add_country():
             return
         else:
             print("\nInvalid input. Please answer 'yes' or 'no'.")
+
 
 
 # Delete a country from a specific category
