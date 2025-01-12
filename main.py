@@ -74,7 +74,6 @@ def add_country():
     
     # Loop until a valid country is entered
     while True:
-        print("\nEnter the country you would like to add to your chosen list!")
         country = input("\nCountry name: ").strip()
         
         # Normalize case for validation
