@@ -74,15 +74,18 @@ def add_country():
     
     # Loop until a valid country is entered
     while True:
-        print("\nWell done! Now enter the country you'd like to add to your chosen list!")
-        print("\nEnsure you spell the country correctly and with a capital letter.")
+        print("\nEnter the country you would like to add to your chosen list!")
         country = input("\nCountry name: ").strip()
+        
+        # Normalize case for validation
+        country = country.title()
         
         # Check if the country is in the valid countries list
         if country not in valid_countries:
             print("\nOops! You have either entered an invalid country or have spelled it incorrectly!")
             print("\nPlease enter a valid country from the list. E.g. Germany, not German or germany.")
         else:
+            print(f"\nWell done! You have added {country} to your {category.capitalize()} countries.")
             break  # Exit the loop if the country is valid
     
     # Validate date format, non-empty input, and future date
@@ -118,9 +121,8 @@ def add_country():
     
     # Add the country to the chosen category
     travel_data[category].append({"country": country, "date": date})
-    print(f"\nWell done! You have added {country} to your {category.capitalize()} list.")
 
-    # After successfully adding a country, ask if the user wants to add another
+    # Prompt to add another country
     while True:
         add_another = input("\nWould you like to add another country? (yes/no): ").strip().lower()
         
@@ -128,25 +130,10 @@ def add_country():
             add_country()  # Recursively call the add_country function
             return
         elif add_another == 'no':
-            while True:
-                go_to_menu = input("\nWould you like to go back to the main menu? (yes/no): ").strip().lower()
-                
-                if go_to_menu == 'yes':
-                    return  # Return to avoid multiple menu displays
-                elif go_to_menu == 'no':
-                    exit_confirmation = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
-                    
-                    if exit_confirmation == 'yes':
-                        print("\nThank you for using our application! Come back soon and add more to your exciting list!")
-                        exit()  # Exit the program
-                    elif exit_confirmation == 'no':
-                        break
-                    else:
-                        print("\nInvalid input. Please enter 'yes' or 'no'.")
-                else:
-                    print("\nInvalid input. Please enter 'yes' or 'no'.")
+            print("\nReturning to the main menu...")
+            return
         else:
-            print("\nOops, that was an invalid input. Please answer 'yes' or 'no'.")
+            print("\nInvalid input. Please answer 'yes' or 'no'.")
 
 # Delete a country from a specific category
 def delete_country():
@@ -207,7 +194,7 @@ def search_country():
     for category, records in travel_data.items():
         for record in records:
             if country.lower() in record["country"].lower():
-                print(f"\nYay! We found it in your {category.capitalize()} list: {record['country']} (Date: {record['date']})")
+                print(f"\nYay! We found it in your {category.capitalize()} countries: {record['country']} (Date: {record['date']})")
                 found = True
     if not found:
         print(f"\nIt appears that {country} is not in any of your lists.")
