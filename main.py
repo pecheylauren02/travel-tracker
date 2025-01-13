@@ -5,25 +5,44 @@ from datetime import datetime
 
 
 valid_countries = [
-    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", 
-    "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", 
-    "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", 
-    "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", 
-    "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", 
-    "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", 
-    "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", 
-    "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", 
-    "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kuwait", "Kyrgyzstan", 
-    "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", 
-    "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", 
-    "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", 
-    "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", 
-    "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", 
-    "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", 
-    "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", 
-    "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", 
-    "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", 
-    "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", 
+    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola",
+    "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", 
+    "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados",
+    "Belarus","Belgium", "Belize", "Benin", "Bhutan", 
+    "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil",
+    "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", 
+    "Cambodia", "Cameroon", "Canada", "Central African Republic",
+    "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", 
+    "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic",
+    "Democratic Republic of the Congo", "Denmark", "Djibouti", 
+    "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador",
+    "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", 
+    "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia",
+    "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", 
+    "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary",
+    "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland",
+    "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan",
+    "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kuwait",
+    "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia",
+    "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar",
+    "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands",
+    "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", 
+    "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique",
+    "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", 
+    "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman",
+    "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru",
+    "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia",
+    "Rwanda", "Saint Kitts and Nevis", "Saint Lucia",
+    "Saint Vincent and the Grenadines", "Samoa", "San Marino",
+    "Sao Tome and Principe", "Saudi Arabia", "Senegal", 
+    "Serbia", "Seychelles", "Sierra Leone", "Singapore",
+    "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", 
+    "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname",
+    "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", 
+    "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago",
+    "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", 
+    "Ukraine", "United Arab Emirates", "United Kingdom",
+    "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", 
     "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
 ]
 
@@ -32,7 +51,6 @@ travel_data = {
     "visited": [],
     "wishlist": []
 }
-
 
 
 def clear_terminal():
@@ -145,7 +163,7 @@ def add_country():
             continue
 
         if date_obj < min_date:
-            print(f"\nYou cannot enter a date before the year you were born, which was in {min_date.strftime('%Y')}.")
+            print(f"\nYou cannot enter a date before the year you were born. Please try again!")
             continue
         elif category == "wishlist" and date_obj <= datetime.now():
             print("\nPlease note: You can only add countries to your wishlist with a future date!")
@@ -257,19 +275,83 @@ def search_country():
                     display_menu()
 
 
+# def sort_records():
+#     """
+#     Sorts the records of a specified category (visited/wishlist) 
+#     alphabetically by country name.
+#     """
+#     clear_terminal()
+#     print("\nYou chose to sort records.")
+#     category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
+#     if category not in travel_data:
+#         print("\nInvalid category. Use 'visited' or 'wishlist'.")
+#         return
+#     travel_data[category].sort(key=lambda x: x["country"].lower())
+#     print(f"Sorted {category.capitalize()} list alphabetically.")
+
+
 def sort_records():
     """
-    Sorts the records of a specified category (visited/wishlist) 
-    alphabetically by country name.
+    Sorts the records of a specified category (visited/wishlist) by different criteria.
     """
     clear_terminal()
     print("\nYou chose to sort records.")
     category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
+    
     if category not in travel_data:
         print("\nInvalid category. Use 'visited' or 'wishlist'.")
         return
-    travel_data[category].sort(key=lambda x: x["country"].lower())
-    print(f"Sorted {category.capitalize()} list alphabetically.")
+    
+    # Display sorting options
+    print("\nChoose a sorting option:")
+    print("1. Alphabetically by country name (A-Z)")
+    print("2. Alphabetically by country name (Z-A)")
+    print("3. Ascending by date")
+    print("4. Descending by date")
+    
+    sorting_choice = input("\nEnter the number corresponding to your choice: ").strip()
+    
+    # Sort based on user's choice
+    if sorting_choice == '1':
+        # Sort alphabetically by country name (A-Z)
+        travel_data[category].sort(key=lambda x: x["country"].lower())
+        print("\nSorted alphabetically by country name (A-Z).")
+    elif sorting_choice == '2':
+        # Sort alphabetically by country name (Z-A)
+        travel_data[category].sort(key=lambda x: x["country"].lower(), reverse=True)
+        print("\nSorted alphabetically by country name (Z-A).")
+    elif sorting_choice == '3':
+        # Sort ascending by date
+        travel_data[category].sort(key=lambda x: x["date"])
+        print("\nSorted by date (ascending).")
+    elif sorting_choice == '4':
+        # Sort descending by date
+        travel_data[category].sort(key=lambda x: x["date"], reverse=True)
+        print("\nSorted by date (descending).")
+    else:
+        print("\nInvalid choice. Returning to the main menu.")
+        display_menu()
+        return
+    
+    # Display the sorted records
+    print(f"\nSorted {category.capitalize()} List:")
+    if travel_data[category]:
+        for record in travel_data[category]:
+            print(f"{record['country']} (Date: {record['date']})")
+    else:
+        print("No records found.")
+    
+    # Return to the main menu
+    response = input("\nWould you like to return to the main menu? (yes/no): ").strip().lower()
+    if response == 'yes':
+        print("Welcome back!")
+    else:
+        exit_confirmation = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
+        if exit_confirmation == 'yes':
+            print("\nThank you for using our application! Come back soon!")
+            exit()
+        else:
+            display_menu()
 
 
 def display_records():
