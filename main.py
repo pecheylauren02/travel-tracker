@@ -1,9 +1,9 @@
 import os
-import json
+# import json
 import re
 from datetime import datetime
 
-# List of valid countries
+
 valid_countries = [
     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", 
     "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", 
@@ -27,39 +27,67 @@ valid_countries = [
     "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
 ]
 
-# Initialize travel data structure
+# Initialise travel data structure
 travel_data = {
     "visited": [],
     "wishlist": []
 }
 
-print("\nWelcome to the Travel Tracker Application!")
-print("\nThis app allows you to keep track of the countries you've visited and those you want to visit.")
+
 
 def clear_terminal():
+    """
+    Allows the user to add a country to their visited or wishlist category.
+    Prompts for the country, category, age, and travel date with validations.
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
 
-# Function to display the main menu with added formatting
-def display_menu():
-    menu_border = "=" * 40
-    print(menu_border)
-    print("\033[1;34m" + "--- Travel Tracker Menu ---" + "\033[0m")  # Blue text for the title
-    print(menu_border)
-    print("\033[1;32m" + "1. Add a country" + "\033[0m")  # Green text for options
-    print("\033[1;33m" + "2. Delete a country" + "\033[0m")  # Yellow text for options
-    print("\033[1;35m" + "3. Search for a country" + "\033[0m")  # Magenta text for options
-    print("\033[1;36m" + "4. Sort records alphabetically" + "\033[0m")  # Cyan text for options
-    print("\033[1;37m" + "5. Display all records" + "\033[0m")  # White text for options
-    print("\033[1;31m" + "6. Exit" + "\033[0m")  # Red text for the exit option
-    print(menu_border)
 
-# Function to confirm an action
+def display_menu():
+    """
+    Displays the main menu of the Travel Tracker application with formatted options.
+    """
+    menu_border = "=" * 50
+    title = "Welcome to the Travel Tracker Application"
+    options = [
+        ("\033[1;32m1. Add a country\033[0m"),
+        ("\033[1;33m2. Delete a country\033[0m"),
+        ("\033[1;35m3. Search for a country\033[0m"),
+        ("\033[1;36m4. Sort records alphabetically\033[0m"),
+        ("\033[1;37m5. Display all records\033[0m"),
+        ("\033[1;31m6. Exit\033[0m"),
+    ]
+
+    print("\033[1;34m" + menu_border + "\033[0m")
+    print("\033[1;37m" + f"  {title}".ljust(48) + "\033[0m")
+    print("\033[1;34m" + menu_border + "\033[0m\n")
+
+    print("Choose an option:")
+    for option in options:
+        print(f"  {option}")
+
+    print("\n\033[1;34m" + menu_border + "\033[0m")
+
+
 def prompt_confirmation(action):
+    """
+    Prompts the user to confirm an action.
+
+    Parameters:
+        action (str): The action to confirm.
+
+    Returns:
+        bool: True if the user confirms the action, False otherwise.
+    """
     confirmation = input(f"Are you sure you want to {action}? (yes/no): ").strip().lower()
     return confirmation == 'yes'
 
 
 def add_country():
+    """
+    Allows the user to add a country to their visited or wishlist category.
+    Prompts for the country, category, age, and travel date with validations.
+    """
     clear_terminal()
     print("\nYou are about to add a country to one of your lists. How exciting!")
     
@@ -70,9 +98,8 @@ def add_country():
         if category not in travel_data:
             print("\nInvalid category. Please use 'visited' or 'wishlist'.")
         else:
-            break  # Exit loop when a valid category is entered
+            break
     
-    # Ask for the user's age before entering the date
     while True:
         age_input = input("\nPlease enter your age: ").strip()
         
@@ -80,9 +107,8 @@ def add_country():
             print("\nPlease enter a valid age.")
         else:
             age = int(age_input)
-            break  # Exit loop when a valid age is entered
-    
-    # Calculate the minimum date based on the user's age (e.g., assuming they are at least this old when visiting a country)
+            break
+
     today = datetime.now()
     min_year = today.year - age
     min_date = datetime(min_year, today.month, today.day)
@@ -90,42 +116,34 @@ def add_country():
     # Loop until a valid country is entered
     while True:
         country = input("\nCountry name: ").strip()
-        
-        # Normalize case for validation
         country = country.title()
-        
-        # Check if the country is in the valid countries list
+
         if country not in valid_countries:
             print("\nOops! You have either entered an invalid country or have spelled it incorrectly!")
             print("\nPlease enter a valid country from the list. E.g. Germany, not German or germany.")
         else:
             print(f"\nWell done! You have added {country} to your {category.capitalize()} countries.")
-            break  # Exit the loop if the country is valid
-    
-    # Validate date format, non-empty input, and ensure the date is after the minimum date based on age
+            break
+
     while True:
         date = input("\nEnter the travel date (dd-mm-yyyy): ").strip()
-        
-        # Check if the date field is empty
+
         if not date:
             print("\nYou have not entered anything yet. Please enter the date as dd-mm-yyyy.")
             continue
-        
-        # Regular expression to match date in dd-mm-yyyy format
+
         if not re.match(r'^\d{2}-\d{2}-\d{4}$', date):
             print("\nUh Oh! The date you entered is wrong! Please enter the date in dd-mm-yyyy format.")
             print("\nFor example: 12-12-2020")
             continue
-        
-        # Convert input date to a datetime object for comparison
+
         try:
             date_obj = datetime.strptime(date, "%d-%m-%Y")
         except ValueError:
             print("\nUh Oh! The date you entered is wrong! Please enter the date in dd-mm-yyyy format.")
             print("\nFor example: 12-12-2020")
             continue
-        
-        # Check if the entered date is valid for the category and age
+
         if date_obj < min_date:
             print(f"\nYou cannot enter a date before the year you were born, which was in {min_date.strftime('%Y')}.")
             continue
@@ -136,19 +154,17 @@ def add_country():
             print("\nYou cannot enter a future date for a visited country. Please enter a date in the past.")
             continue
         
-        break  # Exit loop when valid date is entered
-    
-    # Add the country to the chosen category
+        break
+
     travel_data[category].append({"country": country, "date": date})
 
     print(f"\nSuccess! You have added {country} to your {category.capitalize()} list on {date}.")
 
-    # Prompt to add another country
     while True:
         add_another = input("\nWould you like to add another country? (yes/no): ").strip().lower()
         
         if add_another == 'yes':
-            add_country()  # Recursively call the add_country function
+            add_country()
             return
         elif add_another == 'no':
             print("\nReturning to the main menu...")
@@ -158,6 +174,10 @@ def add_country():
 
 
 def delete_country():
+    """
+    Allows the user to delete a country from their visited or wishlist category.
+    Prompts for the category and country with confirmation before deletion.
+    """
     clear_terminal()
     print("\nWARNING: You are about to delete a country from one of your lists.")
     
@@ -167,7 +187,7 @@ def delete_country():
         if category not in travel_data:
             print("\nOops, that was an invalid category. Enter either 'visited' or 'wishlist'.")
         else:
-            break  # Exit loop when a valid category is entered
+            break
     
     country = input("\nEnter the country you wish to delete: ").strip()
     
@@ -176,41 +196,40 @@ def delete_country():
             if prompt_confirmation(f"delete {country} from {category}"):
                 travel_data[category].remove(record)
                 print(f"\nSuccessfully deleted {country} from {category.capitalize()} list.")
-                
-                # After successfully deleting, ask the user if they want to delete another country
+    
                 while True:
                     delete_another = input("\nWould you like to delete another country? (yes/no): ").strip().lower()
                     
                     if delete_another == 'yes':
-                        delete_country()  # Recursively call the delete_country function
+                        delete_country()
                         return
                     elif delete_another == 'no':
-                        # If no, ask if the user wants to go back to the main menu
                         go_to_menu = input("\nWould you like to go back to the main menu? (yes/no): ").strip().lower()
-                        
+
                         if go_to_menu == 'yes':
-                            display_menu()  # Go back to the main menu
+                            display_menu()
                             return
                         elif go_to_menu == 'no':
-                            # If no, exit the application
                             exit_confirmation = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
                             
                             if exit_confirmation == 'yes':
                                 print("\nThank you for using our application! Come back soon and add more to your exciting list!")
-                                exit()  # Exit the program
+                                exit()
                             else:
-                                # If no, return to the menu
-                                display_menu()  # Go back to the main menu
+                                display_menu()
                                 return
                     else:
                         print("\nInvalid input. Please answer 'yes' or 'no'.")
-            return  # Exit after handling deletion or decision flow
+            return
 
     print(f"{country} not found in {category.capitalize()} list.")
 
 
-# Search for a country in both categories
 def search_country():
+    """
+    Allows the user to search for a country in their travel records.
+    If the country is not found, provides an option to add it or return to the menu.
+    """
     clear_terminal()
     country = input("\nEnter the country name you wish to search for: ").strip()
     found = False
@@ -231,13 +250,17 @@ def search_country():
             else:
                 response = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
                 if response == 'yes':
-                    print("Thank you for using our application! Come back soon and add more to your exciting list!")
+                    print("Thank you for using our application! Come back soon!")
                     exit()
                 else:
                     display_menu()
 
-# Sort and display records
+
 def sort_records():
+    """
+    Sorts the records of a specified category (visited/wishlist) 
+    alphabetically by country name.
+    """
     clear_terminal()
     print("\nYou chose to sort records.")
     category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
@@ -247,12 +270,15 @@ def sort_records():
     travel_data[category].sort(key=lambda x: x["country"].lower())
     print(f"Sorted {category.capitalize()} list alphabetically.")
 
-# Display all records
+
 def display_records():
+    """
+    Displays the travel records for visited and wishlist countries.
+    Prompts the user to add more countries if desired.
+    """
     clear_terminal()
     print("\nHere are your travel records:")
 
-    # Display visited records
     if travel_data["visited"]:
         print("\n\033[1;32mVisited Countries:\033[0m")
         for record in travel_data["visited"]:
@@ -260,7 +286,6 @@ def display_records():
     else:
         print("\n\033[1;32mVisited Countries:\033[0m No records yet!")
 
-    # Display wishlist records
     if travel_data["wishlist"]:
         print("\n\033[1;33mWishlist Countries:\033[0m")
         for record in travel_data["wishlist"]:
@@ -268,7 +293,6 @@ def display_records():
     else:
         print("\n\033[1;33mWishlist Countries:\033[0m No records yet!")
 
-    # Prompt for adding more countries
     while True:
         choice = input("\nWould you like to add more countries to your records? (yes/no): ").strip().lower()
         if choice == "yes":
@@ -281,8 +305,11 @@ def display_records():
             print("\nInvalid input. Please answer 'yes' or 'no'.")
 
 
-# Main application logic
 def travel_tracker_app():
+    """
+    Main function to run the Travel Tracker application.
+    Provides the user with a menu to navigate through available options.
+    """
     while True:
         display_menu()
         choice = input("\nChoose an option from the list above (1-6): ").strip()
