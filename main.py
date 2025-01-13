@@ -168,6 +168,7 @@ def add_country():
             return
         elif add_another == 'no':
             print("\nReturning to the main menu...")
+            clear_terminal()
             return
         else:
             print("\nInvalid input. Please answer 'yes' or 'no'.")
@@ -300,6 +301,7 @@ def display_records():
             return
         elif choice == "no":
             print("\nReturning to the main menu...\n")
+            clear_terminal()
             break
         else:
             print("\nInvalid input. Please answer 'yes' or 'no'.")
@@ -324,7 +326,8 @@ def travel_tracker_app():
         elif choice == "5":
             display_records()
         elif choice == "6":
-            print("Exiting the Travel Tracker Application.")
+            print("\nThank you for using the Travel Tracker! 🌍\n")
+            print("We hope your next adventure is unforgettable! 👋\n")
             break
         else:
             print("Invalid choice, please try again.")
