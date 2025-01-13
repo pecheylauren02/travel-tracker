@@ -50,6 +50,8 @@ travel_data = {
     "wishlist": []
 }
 
+stored_age = None
+
 
 def clear_terminal():
     """
@@ -104,6 +106,7 @@ def add_country():
     Allows the user to add a country to their visited or wishlist category.
     Prompts for the country, category, age, and travel date with validations.
     """
+    global stored_age  # Remember the user's age across multiple calls
     clear_terminal()
     print("\nYou are about to add a country to one of your lists. How exciting!")
 
@@ -116,18 +119,22 @@ def add_country():
         else:
             break
 
-    while True:
-        age_input = input("\nPlease enter your age: ").strip()
+    if category == "visited" and stored_age is None:
+        while True:
+            age_input = input("\nPlease enter your age: ").strip()
 
-        if not age_input.isdigit() or int(age_input) <= 0:
-            print("\nPlease enter a valid age.")
-        else:
-            age = int(age_input)
-            break
+            if not age_input.isdigit() or not (1 <= int(age_input) <= 120):
+                print("\nPlease enter a valid age between 1 and 120.")
+            else:
+                stored_age = int(age_input)
+                break
+
+    # Default to the stored age if available
+    age = stored_age if category == "visited" else None
 
     today = datetime.now()
-    min_year = today.year - age
-    min_date = datetime(min_year, today.month, today.day)
+    min_year = today.year - (age or 0)  # Use age only if entered
+    min_date = datetime(min_year, today.month, today.day) if age else None
 
     while True:
         country = input("\nCountry name: ").strip()
@@ -162,7 +169,7 @@ def add_country():
             print("\nFor example: 12-12-2020")
             continue
 
-        if date_obj < min_date:
+        if min_date and date_obj < min_date:
             print("\nYou cannot enter a date before the year you were born.")
             continue
         elif category == "wishlist" and date_obj <= datetime.now():
@@ -298,6 +305,7 @@ def sort_records():
     print("4. Descending by date")
 
     sorting_choice = input("\nEnter the number corresponding to your choice: ").strip()
+    clear_terminal()
 
     # Sort based on user's choice
     if sorting_choice == '1':
