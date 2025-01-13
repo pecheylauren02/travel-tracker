@@ -127,7 +127,7 @@ def add_country():
         
         # Check if the entered date is valid for the category and age
         if date_obj < min_date:
-            print(f"\nYou cannot enter a date before you were born, which is {min_date.strftime('%d-%m-%Y')}.")
+            print(f"\nYou cannot enter a date before the year you were born, which was in {min_date.strftime('%Y')}.")
             continue
         elif category == "wishlist" and date_obj <= datetime.now():
             print("\nPlease note: You can only add countries to your wishlist with a future date!")
@@ -157,8 +157,6 @@ def add_country():
             print("\nInvalid input. Please answer 'yes' or 'no'.")
 
 
-
-# Delete a country from a specific category
 def delete_country():
     clear_terminal()
     print("\nWARNING: You are about to delete a country from one of your lists.")
@@ -169,7 +167,7 @@ def delete_country():
         if category not in travel_data:
             print("\nOops, that was an invalid category. Enter either 'visited' or 'wishlist'.")
         else:
-            break  # Exit loop when valid category is entered
+            break  # Exit loop when a valid category is entered
     
     country = input("\nEnter the country you wish to delete: ").strip()
     
@@ -206,8 +204,10 @@ def delete_country():
                                 return
                     else:
                         print("\nInvalid input. Please answer 'yes' or 'no'.")
-                return
+            return  # Exit after handling deletion or decision flow
+
     print(f"{country} not found in {category.capitalize()} list.")
+
 
 # Search for a country in both categories
 def search_country():
@@ -275,7 +275,7 @@ def display_records():
             add_country()
             return
         elif choice == "no":
-            print("\nReturning to the main menu...")
+            print("\nReturning to the main menu...\n")
             break
         else:
             print("\nInvalid input. Please answer 'yes' or 'no'.")
