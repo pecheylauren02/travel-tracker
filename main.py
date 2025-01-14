@@ -248,6 +248,7 @@ def validate_country():
             print(f"\nSuccessfully added {country}.")
             return country
 
+
 def validate_date(min_date, category):
     """
     Validates the travel date entered by the user.
@@ -438,7 +439,8 @@ def sort_records():
         travel_data[category].sort(key=lambda x: x["country"].lower())
         print("\nSorted alphabetically by country name (A-Z).")
     elif sorting_choice == '2':
-        travel_data[category].sort(key=lambda x: x["country"].lower(), reverse=True)
+        travel_data[category].sort(key=lambda x: x["country"].lower(), 
+                                  reverse=True)
         print("\nSorted alphabetically by country name (Z-A).")
     elif sorting_choice == '3':
         travel_data[category].sort(key=lambda x: x["date"])
@@ -459,12 +461,12 @@ def sort_records():
     else:
         print("No records found.")
 
-    response = input("\nWould you like to return to the main menu? (yes/no): ").strip().lower()
+    response = input("\nReturn to the main menu? (yes/no): ").strip().lower()
     if response == 'yes':
         print("Welcome back!")
     else:
-        exit_confirmation = input("\nWould you like to exit the application? (yes/no): "
-                                 ).strip().lower()
+        exit_confirmation = input("\nDo you want to exit the app? (yes/no): "
+                                  ).strip().lower()
         if exit_confirmation == 'yes':
             print("\nThank you for using our application! Come back soon!")
             sys.exit()
@@ -495,8 +497,8 @@ def display_records():
         print("\n\033[1;33mWishlist Countries:\033[0m No records yet!")
 
     while True:
-        choice = input("\nWould you like to add more countries to your records? (yes/no): "
-                      ).strip().lower()
+        choice = input("\nDo you want to add more countries? (yes/no): "
+                       ).strip().lower()
         if choice == "yes":
             add_country()
             return
@@ -515,7 +517,7 @@ def travel_tracker_app():
     """
     while True:
         display_menu()
-        choice = input("\nChoose an option from the list above (1-6): ").strip()
+        choice = input("\nChoose an option from the list (1-6): ").strip()
         if choice == "1":
             add_country()
         elif choice == "2":
@@ -532,6 +534,7 @@ def travel_tracker_app():
             sys.exit()
         else:
             print("Invalid choice, please try again.")
+
 
 # Start the application
 travel_tracker_app()
