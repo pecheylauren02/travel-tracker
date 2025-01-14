@@ -1,7 +1,10 @@
 """
-This script manages travel data, allowing users to add, search, sort, and view countries 
-they've visited or wish to visit. It includes functionality for user input, validating 
-and storing country data, and providing options to sort or display records.
+This script manages travel data,
+allowing users to add, search, sort, and view countries
+they've visited or wish to visit.
+It includes functionality for user input, validating
+and storing country data, and providing
+options to sort or display records.
 
 Modules:
 - os: for interacting with the operating system
@@ -17,19 +20,19 @@ from datetime import datetime
 
 valid_countries = [
     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola",
-    "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", 
+    "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria",
     "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados",
-    "Belarus","Belgium", "Belize", "Benin", "Bhutan", 
+    "Belarus", "Belgium", "Belize", "Benin", "Bhutan",
     "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil",
-    "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", 
+    "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde",
     "Cambodia", "Cameroon", "Canada", "Central African Republic",
-    "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", 
+    "Chad", "Chile", "China", "Colombia", "Comoros", "Congo",
     "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic",
-    "Democratic Republic of the Congo", "Denmark", "Djibouti", 
+    "Democratic Republic of the Congo", "Denmark", "Djibouti",
     "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador",
-    "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", 
+    "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia",
     "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia",
-    "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", 
+    "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea",
     "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary",
     "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland",
     "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan",
@@ -37,23 +40,23 @@ valid_countries = [
     "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia",
     "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar",
     "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands",
-    "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", 
+    "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova",
     "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique",
-    "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", 
+    "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand",
     "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman",
     "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru",
     "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia",
     "Rwanda", "Saint Kitts and Nevis", "Saint Lucia",
     "Saint Vincent and the Grenadines", "Samoa", "San Marino",
-    "Sao Tome and Principe", "Saudi Arabia", "Senegal", 
+    "Sao Tome and Principe", "Saudi Arabia", "Senegal",
     "Serbia", "Seychelles", "Sierra Leone", "Singapore",
-    "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", 
+    "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa",
     "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname",
-    "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", 
+    "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania",
     "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago",
-    "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", 
+    "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda",
     "Ukraine", "United Arab Emirates", "United Kingdom",
-    "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", 
+    "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City",
     "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
 ]
 
@@ -76,7 +79,8 @@ def clear_terminal():
 
 def display_menu():
     """
-    Displays the main menu of the Travel Tracker application with formatted options.
+    Displays the main menu of the Travel Tracker
+    application with formatted options.
     """
     menu_border = "=" * 50
     title = "Welcome to the Travel Tracker Application 🌍"
@@ -110,7 +114,8 @@ def prompt_confirmation(action):
     Returns:
         bool: True if the user confirms the action, False otherwise.
     """
-    confirmation = input(f"Are you sure you want to {action}? (yes/no): ").strip().lower()
+    confirmation = input(f"Are you sure you want to {action}? (yes/no): "
+                         ).strip().lower()
     return confirmation == 'yes'
 
 
@@ -119,11 +124,13 @@ def validate_category():
     Ensures the user enters a valid category ('visited' or 'wishlist').
     """
     while True:
-        category = input("\nType either 'visited' or 'wishlist' to continue: ").strip().lower()
+        category = input("\nType either 'visited' or 'wishlist' to continue: "
+                         ).strip().lower()
         if category not in travel_data:
             print("\nInvalid category. Please use 'visited' or 'wishlist'.")
         else:
             return category
+
 
 def validate_age():
     """
@@ -135,6 +142,7 @@ def validate_age():
             print("\nPlease enter a valid age between 1 and 120.")
         else:
             return int(age_input)
+
 
 def validate_country():
     """
@@ -173,11 +181,11 @@ def validate_date(min_date, category):
             continue
 
         if min_date and date_obj < min_date:
-            print("\nYou cannot enter a date before the year you were born.")
+            print("\nYou cannot enter a date before your birthyear.")
             continue
 
         if category == "wishlist" and date_obj <= datetime.now():
-            print("\nPlease note: You can only add countries with a future date!")
+            print("\nYou can only add countries with a future date!")
             continue
 
         if category == "visited" and date_obj > datetime.now():
@@ -186,14 +194,17 @@ def validate_date(min_date, category):
 
         return date_obj
 
+
 def add_country():
     """
-    Allows the user to add a country to their visited or wishlist category.
-    Prompts for the country, category, age, and travel date with validations.
+    Allows the user to add a country to
+    their visited or wishlist category.
+    Prompts for the country, category,
+    age, and travel date with validations.
     """
     global STORED_AGE  # Remember the user's age across multiple calls
     clear_terminal()
-    print("\nYou are about to add a country to one of your lists. How exciting!")
+    print("\nYou are about to add a country to one of your lists!")
 
     category = validate_category()
 
@@ -209,13 +220,15 @@ def add_country():
 
     date_obj = validate_date(min_date, category)
 
-    travel_data[category].append({"country": country, "date": date_obj.strftime("%d-%m-%Y")})
+    travel_data[category].append({"country": country,
+                                 "date": date_obj.strftime("%d-%m-%Y")})
 
-    print(f"\nSuccess! You have added {country} to your {category.capitalize()}")
-    print(f"\nlist on {date_obj.strftime('%d-%m-%Y')}")
+    print(f"\nSuccess! You have added {country} to: ")
+    print(f"\n{category.capitalize()} for {date_obj.strftime('%d-%m-%Y')}")
 
     while True:
-        add_another = input("\nWould you like to add another country? (yes/no): ").strip().lower()
+        add_another = input("\nNeed to add another country? (yes/no): "
+                            ).strip().lower()
         if add_another == 'yes':
             add_country()
             return
@@ -228,18 +241,20 @@ def add_country():
 
 def delete_country():
     """
-    Allows the user to delete a country from their visited or wishlist category.
-    Prompts for the category and country with confirmation before deletion.
+    Allows the user to delete a country
+    from their visited or wishlist category.
+    Prompts for the category and country
+    with confirmation before deletion.
     """
     clear_terminal()
-    print("\nWARNING: You are about to delete a country from one of your lists.")
+    print("\nWARNING: You are about to delete a country!")
 
     while True:
-        category = input("\nEnter the category you wish to delete it from (visited/wishlist): "
-                        ).strip().lower()
+        category = input("\nEnter the category to delete (visited/wishlist): "
+                         ).strip().lower()
 
         if category not in travel_data:
-            print("\nOops, that was an invalid category. Enter either 'visited' or 'wishlist'.")
+            print("\nOops, try again. Enter either 'visited' or 'wishlist'.")
         else:
             break
 
@@ -249,10 +264,12 @@ def delete_country():
         if record["country"].lower() == country.lower():
             if prompt_confirmation(f"delete {country} from {category}"):
                 travel_data[category].remove(record)
-                print(f"\nSuccessfully deleted {country} from {category.capitalize()} list.")
+                print(f"\nSuccessfully deleted {country} from: ")
+                print(f"\n{category.capitalize()} list.")
 
                 while True:
-                    delete_another = input("\nWould you like to delete another country? (yes/no): "
+                    delete_another = input(
+                        "\nNeed to delete another country? (yes/no): "
                                           ).strip().lower()
 
                     if delete_another == 'yes':
@@ -262,59 +279,73 @@ def delete_country():
                         display_menu()
                         return
 
-                    exit_confirmation = input("\nExit the application? (yes/no): "
+                    exit_confirmation = input(
+                            "\nExit the application? (yes/no): "
                                              ).strip().lower()
 
                     if exit_confirmation == 'yes':
-                        print("\nThank you for using our application! Come back soon!")
+                        print("\nThank you for using our app!")
+                        print("\nCome back soon!")
                         sys.exit()
                     else:
                         display_menu()
             return
 
-    print(f"\n{country} was not found in your {category.capitalize()} list.\n6")
+    print(f"\n{country} is not in your {category.capitalize()} list.\n6")
+
 
 def search_country():
     """
-    Allows the user to search for a country in their travel records.
-    If the country is not found, provides an option to add it or return to the menu.
+    Allows the user to search for a country
+    in their travel records.
+    If the country is not found,
+    provides an option to add it
+    or return to the menu.
     """
     clear_terminal()
-    country = input("\nEnter the country name you wish to search for: ").strip()
+    country = input("\nSearch for your country here: ").strip()
     found = False
     for category, records in travel_data.items():
         for record in records:
             if country.lower() in record["country"].lower():
-                print(f"\nYay! We found it in your {category.capitalize()} countries: ")
-                print(f"\n{record['country']} (Date: {record['date']}")
+                print(
+                    f"\nWe found it in your {category.capitalize()} places: "
+                )
+                print(
+                    f"\n{record['country']} (Date: {record['date']}"
+                    )
                 found = True
     if not found:
         print(f"\nIt appears that {country} is not in any of your lists.")
-        response = input(f"\nWould you like to add {country} to one of your lists? (yes/no): "
-                        ).strip().lower()
+        response = input(
+            f"\nWant to add {country} to one of your lists? (yes/no): "
+                         ).strip().lower()
         if response == 'yes':
             add_country()
         else:
-            response = input("\nWould you like to return to the main menu? (yes/no): "
-                            ).strip().lower()
+            response = input("\nReturn to the main menu? (yes/no): "
+                             ).strip().lower()
             if response == 'yes':
                 display_menu()
             else:
-                print("\nThank you for using our application! Come back soon!")
+                print("\nThank you for using our application!")
                 sys.exit()
 
 
 def sort_records():
     """
-    Sorts the records of a specified category (visited/wishlist) by different criteria.
+    Sorts the records of a specified category
+    (visited/wishlist) by different criteria.
     """
     clear_terminal()
     print("\nYou chose to sort records.")
 
-    category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
+    category = input("\nEnter the category to sort (visited/wishlist): "
+                     ).strip().lower()
     while category not in travel_data:
         print("\nInvalid category. Use 'visited' or 'wishlist'.")
-        category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
+        category = input("\nEnter the category to sort (visited/wishlist): "
+                         ).strip().lower()
 
     print("\n\033[1;34mChoose a sorting option:\033[0m")
     print("\033[1;32m1. Ascending order by country (A-Z)\033[0m")
@@ -322,7 +353,8 @@ def sort_records():
     print("\033[1;36m3. Ascending order by date\033[0m")
     print("\033[1;35m4. Descending order by date\033[0m")
 
-    sorting_choice = input("\nEnter the number corresponding to your choice: ").strip()
+    sorting_choice = input("\nEnter the number corresponding to your choice: "
+                           ).strip()
     clear_terminal()
 
     # Dictionary to map sorting choices to sorting functions
@@ -355,7 +387,8 @@ def sort_records():
     response = input("\nReturn to the main menu? (yes/no): ").strip().lower()
     if response == 'yes':
         print("Welcome back!")
-    elif input("\nDo you want to exit the app? (yes/no): ").strip().lower() == 'yes':
+    elif input("\nDo you want to exit the app? (yes/no): "
+               ).strip().lower() == 'yes':
         print("\nThank you for using our application! Come back soon!")
         sys.exit()
     else:
@@ -385,7 +418,8 @@ def display_records():
         print("\n\033[1;33mWishlist Countries:\033[0m No records yet!")
 
     while True:
-        choice = input("\nDo you want to add more countries? (yes/no): ").strip().lower()
+        choice = input("\nDo you want to add more countries? (yes/no): "
+                       ).strip().lower()
         if choice == "yes":
             add_country()
             return  # Return immediately after calling add_country()
