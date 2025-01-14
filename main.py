@@ -249,49 +249,47 @@ def delete_country():
     clear_terminal()
     print("\nWARNING: You are about to delete a country!")
 
+    # Get the category
     while True:
-        category = input("\nEnter the category to delete (visited/wishlist): "
+        category = input("\nEnter the category (visited/wishlist): "
                          ).strip().lower()
-
         if category not in travel_data:
-            print("\nOops, try again. Enter either 'visited' or 'wishlist'.")
+            print("\nEnter either 'visited' or 'wishlist'.")
         else:
             break
 
-    country = input("\nEnter the country you wish to delete: ").strip()
+    # Loop for country deletion
+    while True:
+        country = input("\nEnter the country you wish to delete: ").strip()
+        # Check if the country exists in the category
+        found = False
+        for record in travel_data[category]:
+            if record["country"].lower() == country.lower():
+                found = True
+                if prompt_confirmation(f"delete {country} from {category}"):
+                    travel_data[category].remove(record)
+                    print(f"\nSuccessfully deleted {country} from: ")
+                    print(f"\n{category.capitalize()} list.")
+                break
 
-    for record in travel_data[category]:
-        if record["country"].lower() == country.lower():
-            if prompt_confirmation(f"delete {country} from {category}"):
-                travel_data[category].remove(record)
-                print(f"\nSuccessfully deleted {country} from: ")
-                print(f"\n{category.capitalize()} list.")
+        if not found:
+            print(f"\n{country} is not in your {category.capitalize()} list.")
+            retry = input("\nWould you like to try again? (yes/no): "
+                          ).strip().lower()
+            if retry == "yes":
+                continue
+            else:
+                return
 
-                while True:
-                    delete_another = input(
-                        "\nNeed to delete another country? (yes/no): "
-                                          ).strip().lower()
-
-                    if delete_another == 'yes':
-                        delete_country()
-                        return
-                    if delete_another == 'no':
-                        display_menu()
-                        return
-
-                    exit_confirmation = input(
-                            "\nExit the application? (yes/no): "
-                                             ).strip().lower()
-
-                    if exit_confirmation == 'yes':
-                        print("\nThank you for using our app!")
-                        print("\nCome back soon!")
-                        sys.exit()
-                    else:
-                        display_menu()
-            return
-
-    print(f"\n{country} is not in your {category.capitalize()} list.\n6")
+        while True:
+            delete_another = input("\nNeed to delete another? (yes/no): "
+                                   ).strip().lower()
+            if delete_another == "yes":
+                break
+            elif delete_another == "no":
+                return
+            else:
+                print("\nPlease enter 'yes' or 'no'.")
 
 
 def search_country():
