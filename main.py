@@ -371,7 +371,7 @@ def delete_country():
                         display_menu()
             return
 
-    print(f"\n{country} was not found in your {category.capitalize()} list.\n")
+    print(f"\n{country} was not found in your {category.capitalize()} list.\n6")
 
 def search_country():
     """
@@ -410,12 +410,10 @@ def sort_records():
     clear_terminal()
     print("\nYou chose to sort records.")
 
-    # Loop until the user enters a valid category
-    while True:
-        category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
-        if category in travel_data:
-            break
+    category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
+    while category not in travel_data:
         print("\nInvalid category. Use 'visited' or 'wishlist'.")
+        category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
 
     print("\n\033[1;34mChoose a sorting option:\033[0m")
     print("\033[1;32m1. Ascending order by country (A-Z)\033[0m")
@@ -426,20 +424,19 @@ def sort_records():
     sorting_choice = input("\nEnter the number corresponding to your choice: ").strip()
     clear_terminal()
 
-    # Sort based on user's choice
-    if sorting_choice == '1':
-        travel_data[category].sort(key=lambda x: x["country"].lower())
-        print("\nSorted alphabetically by country name (A-Z).")
-    elif sorting_choice == '2':
-        travel_data[category].sort(key=lambda x: x["country"].lower(),
-                                  reverse=True)
-        print("\nSorted alphabetically by country name (Z-A).")
-    elif sorting_choice == '3':
-        travel_data[category].sort(key=lambda x: x["date"])
-        print("\nSorted by date (ascending).")
-    elif sorting_choice == '4':
-        travel_data[category].sort(key=lambda x: x["date"], reverse=True)
-        print("\nSorted by date (descending).")
+    # Dictionary to map sorting choices to sorting functions
+    sort_functions = {
+        '1': (lambda x: x["country"].lower(), False, "A-Z"),
+        '2': (lambda x: x["country"].lower(), True, "Z-A"),
+        '3': (lambda x: x["date"], False, "ascending by date"),
+        '4': (lambda x: x["date"], True, "descending by date")
+    }
+
+    # Perform sorting based on user's choice
+    if sorting_choice in sort_functions:
+        key_func, reverse, order = sort_functions[sorting_choice]
+        travel_data[category].sort(key=key_func, reverse=reverse)
+        print(f"\nSorted alphabetically by country name ({order}).")
     else:
         print("\nInvalid choice. Returning to the main menu.")
         display_menu()
@@ -453,17 +450,15 @@ def sort_records():
     else:
         print("No records found.")
 
+    # Simplified exit/menu logic
     response = input("\nReturn to the main menu? (yes/no): ").strip().lower()
     if response == 'yes':
         print("Welcome back!")
+    elif input("\nDo you want to exit the app? (yes/no): ").strip().lower() == 'yes':
+        print("\nThank you for using our application! Come back soon!")
+        sys.exit()
     else:
-        exit_confirmation = input("\nDo you want to exit the app? (yes/no): "
-                                  ).strip().lower()
-        if exit_confirmation == 'yes':
-            print("\nThank you for using our application! Come back soon!")
-            sys.exit()
-        else:
-            display_menu()
+        display_menu()
 
 
 def display_records():
