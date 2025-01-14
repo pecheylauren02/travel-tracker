@@ -281,7 +281,7 @@ def validate_date(min_date, category):
         if category == "visited" and date_obj > datetime.now():
             print("\nYou cannot enter a future date for a visited country.")
             continue
-        
+
         return date_obj
 
 def add_country():
@@ -309,7 +309,8 @@ def add_country():
 
     travel_data[category].append({"country": country, "date": date_obj.strftime("%d-%m-%Y")})
 
-    print(f"\nSuccess! You have added {country} to your {category.capitalize()} list on {date_obj.strftime('%d-%m-%Y')}.")
+    print(f"\nSuccess! You have added {country} to your {category.capitalize()}")
+    print(f"\nlist on {date_obj.strftime('%d-%m-%Y')}")
 
     while True:
         add_another = input("\nWould you like to add another country? (yes/no): ").strip().lower()
