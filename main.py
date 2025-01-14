@@ -114,53 +114,144 @@ def prompt_confirmation(action):
     return confirmation == 'yes'
 
 
-def add_country():
-    """
-    Allows the user to add a country to their visited or wishlist category.
-    Prompts for the country, category, age, and travel date with validations.
-    """
-    global STORED_AGE # Remember the user's age across multiple calls
-    clear_terminal()
-    print("\nYou are about to add a country to one of your lists. How exciting!")
+# def add_country():
+#     """
+#     Allows the user to add a country to their visited or wishlist category.
+#     Prompts for the country, category, age, and travel date with validations.
+#     """
+#     global STORED_AGE # Remember the user's age across multiple calls
+#     clear_terminal()
+#     print("\nYou are about to add a country to one of your lists. How exciting!")
 
+#     while True:
+#         print("\nPlease enter the category you would like to enter below:")
+#         category = input("\nType either 'visited' or 'wishlist' to continue: ").strip().lower()
+
+#         if category not in travel_data:
+#             print("\nInvalid category. Please use 'visited' or 'wishlist'.")
+#         else:
+#             break
+
+#     if category == "visited" and STORED_AGE is None:
+#         while True:
+#             age_input = input("\nPlease enter your age: ").strip()
+
+#             if not age_input.isdigit() or not 1 <= int(age_input) <= 120:
+#                 print("\nPlease enter a valid age between 1 and 120.")
+#             else:
+#                 STORED_AGE = int(age_input)
+#                 break
+
+#     # Default to the stored age if available
+#     age = STORED_AGE if category == "visited" else None
+
+#     today = datetime.now()
+#     min_year = today.year - (age or 0)  # Use age only if entered
+#     min_date = datetime(min_year, today.month, today.day) if age else None
+
+#     while True:
+#         country = input("\nCountry name: ").strip()
+#         country = country.title()
+
+#         if country not in valid_countries:
+#             print("\nOops! You have either entered an invalid country!")
+#             print("\nTry entering it again.")
+#         else:
+#             print(f"\nWell done! You have added {country}")
+#             print(f"\nto your {category.capitalize()} countries.")
+#             break
+
+#     while True:
+#         date = input("\nEnter the travel date (dd-mm-yyyy): ").strip()
+
+#         if not date:
+#             print("\nYou have not entered anything yet.")
+#             print("\nPlease enter the date as dd-mm-yyyy")
+#             continue
+
+#         if not re.match(r'^\d{2}-\d{2}-\d{4}$', date):
+#             print("\nUh Oh! Please enter the date in dd-mm-yyyy format.")
+#             print("\nFor example: 12-12-2020")
+#             continue
+
+#         try:
+#             date_obj = datetime.strptime(date, "%d-%m-%Y")
+#         except ValueError:
+#             print("\nUh Oh! The date you entered is wrong!")
+#             print("\nPlease enter the date in dd-mm-yyyy format.")
+#             print("\nFor example: 12-12-2020")
+#             continue
+
+#         if min_date and date_obj < min_date:
+#             print("\nYou cannot enter a date before the year you were born.")
+#             continue
+
+#         if category == "wishlist" and date_obj <= datetime.now():
+#             print("\nPlease note: You can only add countries with a future date!")
+#             continue
+
+#         if category == "visited" and date_obj > datetime.now():
+#             print("\nYou cannot enter a future date for a visited country.")
+#             print("\nPlease enter a date in the past.")
+#             continue
+#         break
+
+#     travel_data[category].append({"country": country, "date": date})
+
+#     print(f"\nSuccess! You have added {country} to your {category.capitalize()} list on {date}.")
+
+#     while True:
+#         add_another = input("\nWould you like to add another country? (yes/no): ").strip().lower()
+
+#         if add_another == 'yes':
+#             add_country()
+#             return
+#         if add_another == 'no':
+#             print("\nReturning to the main menu...")
+#             clear_terminal()
+#             return
+#         print("\nInvalid input. Please answer 'yes' or 'no'.")
+
+
+def validate_category():
+    """
+    Ensures the user enters a valid category ('visited' or 'wishlist').
+    """
     while True:
-        print("\nPlease enter the category you would like to enter below:")
         category = input("\nType either 'visited' or 'wishlist' to continue: ").strip().lower()
-
         if category not in travel_data:
             print("\nInvalid category. Please use 'visited' or 'wishlist'.")
         else:
-            break
+            return category
 
-    if category == "visited" and STORED_AGE is None:
-        while True:
-            age_input = input("\nPlease enter your age: ").strip()
-
-            if not age_input.isdigit() or not 1 <= int(age_input) <= 120:
-                print("\nPlease enter a valid age between 1 and 120.")
-            else:
-                STORED_AGE = int(age_input)
-                break
-
-    # Default to the stored age if available
-    age = STORED_AGE if category == "visited" else None
-
-    today = datetime.now()
-    min_year = today.year - (age or 0)  # Use age only if entered
-    min_date = datetime(min_year, today.month, today.day) if age else None
-
+def validate_age():
+    """
+    Validates the user's age input if needed.
+    """
     while True:
-        country = input("\nCountry name: ").strip()
-        country = country.title()
+        age_input = input("\nPlease enter your age: ").strip()
+        if not age_input.isdigit() or not 1 <= int(age_input) <= 120:
+            print("\nPlease enter a valid age between 1 and 120.")
+        else:
+            return int(age_input)
 
+def validate_country():
+    """
+    Validates the country input against valid countries.
+    """
+    while True:
+        country = input("\nCountry name: ").strip().title()
         if country not in valid_countries:
             print("\nOops! You have either entered an invalid country!")
             print("\nTry entering it again.")
         else:
-            print(f"\nWell done! You have added {country}")
-            print(f"\nto your {category.capitalize()} countries.")
-            break
+            print(f"\nSuccessfully added {country}.")
+            return country
 
+def validate_date(min_date, category):
+    """
+    Validates the travel date entered by the user.
+    """
     while True:
         date = input("\nEnter the travel date (dd-mm-yyyy): ").strip()
 
@@ -171,29 +262,13 @@ def add_country():
 
         if not re.match(r'^\d{2}-\d{2}-\d{4}$', date):
             print("\nUh Oh! Please enter the date in dd-mm-yyyy format.")
-            print("\nFor example: 12-12-2020")
             continue
 
         try:
             date_obj = datetime.strptime(date, "%d-%m-%Y")
         except ValueError:
             print("\nUh Oh! The date you entered is wrong!")
-            print("\nPlease enter the date in dd-mm-yyyy format.")
-            print("\nFor example: 12-12-2020")
             continue
-
-        # if min_date and date_obj < min_date:
-        #     print("\nYou cannot enter a date before the year you were born.")
-        #     continue
-        # elif category == "wishlist" and date_obj <= datetime.now():
-        #     print("\nPlease note: You can only add countries with a future date!")
-        #     continue
-        # elif category == "visited" and date_obj > datetime.now():
-        #     print("\nYou cannot enter a future date for a visited country.")
-        #     print("\nPlease enter a date in the past.")
-        #     continue
-        # else:
-        #     break
 
         if min_date and date_obj < min_date:
             print("\nYou cannot enter a date before the year you were born.")
@@ -205,17 +280,39 @@ def add_country():
 
         if category == "visited" and date_obj > datetime.now():
             print("\nYou cannot enter a future date for a visited country.")
-            print("\nPlease enter a date in the past.")
             continue
-        break
+        
+        return date_obj
 
-    travel_data[category].append({"country": country, "date": date})
+def add_country():
+    """
+    Allows the user to add a country to their visited or wishlist category.
+    Prompts for the country, category, age, and travel date with validations.
+    """
+    global STORED_AGE  # Remember the user's age across multiple calls
+    clear_terminal()
+    print("\nYou are about to add a country to one of your lists. How exciting!")
 
-    print(f"\nSuccess! You have added {country} to your {category.capitalize()} list on {date}.")
+    category = validate_category()
+
+    if category == "visited" and STORED_AGE is None:
+        STORED_AGE = validate_age()
+
+    age = STORED_AGE if category == "visited" else None
+    today = datetime.now()
+    min_year = today.year - (age or 0)
+    min_date = datetime(min_year, today.month, today.day) if age else None
+
+    country = validate_country()
+
+    date_obj = validate_date(min_date, category)
+
+    travel_data[category].append({"country": country, "date": date_obj.strftime("%d-%m-%Y")})
+
+    print(f"\nSuccess! You have added {country} to your {category.capitalize()} list on {date_obj.strftime('%d-%m-%Y')}.")
 
     while True:
         add_another = input("\nWould you like to add another country? (yes/no): ").strip().lower()
-
         if add_another == 'yes':
             add_country()
             return
@@ -223,8 +320,7 @@ def add_country():
             print("\nReturning to the main menu...")
             clear_terminal()
             return
-        else:
-            print("\nInvalid input. Please answer 'yes' or 'no'.")
+        print("\nInvalid input. Please answer 'yes' or 'no'.")
 
 
 def delete_country():
