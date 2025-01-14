@@ -278,12 +278,8 @@ def search_country():
             if response == 'yes':
                 display_menu()
             else:
-                response = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
-                if response == 'yes':
-                    print("Thank you for using our application! Come back soon!")
-                    exit()
-                else:
-                    display_menu()
+                print("\nThank you for using our application! Come back soon!")
+                exit()
 
 
 def sort_records():
