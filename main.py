@@ -318,7 +318,7 @@ def add_country():
         if add_another == 'yes':
             add_country()
             return
-        elif add_another == 'no':
+        if add_another == 'no':
             print("\nReturning to the main menu...")
             clear_terminal()
             return
@@ -357,29 +357,21 @@ def delete_country():
                     if delete_another == 'yes':
                         delete_country()
                         return
-                    elif delete_another == 'no':
-                        go_to_menu = input("\nDo you want go back to the main menu? (yes/no): "
-                                           ).strip().lower()
+                    if delete_another == 'no':
+                        display_menu()
+                        return
 
-                        if go_to_menu == 'yes':
-                            display_menu()
-                            return
-                        elif go_to_menu == 'no':
-                            exit_confirmation = input
-                            ("\nWould you like to exit the application? (yes/no): ").strip().lower()
+                    exit_confirmation = input("\nExit the application? (yes/no): "
+                                             ).strip().lower()
 
-                            if exit_confirmation == 'yes':
-                                print("\nThank you for using our application! Come back soon!")
-                                sys.exit()
-                            else:
-                                display_menu()
-                                return
+                    if exit_confirmation == 'yes':
+                        print("\nThank you for using our application! Come back soon!")
+                        sys.exit()
                     else:
-                        print("\nInvalid input. Please answer 'yes' or 'no'.")
+                        display_menu()
             return
 
-    print(f"{country} not found in {category.capitalize()} list.")
-
+    print(f"\n{country} was not found in your {category.capitalize()} list.\n")
 
 def search_country():
     """
@@ -439,7 +431,7 @@ def sort_records():
         travel_data[category].sort(key=lambda x: x["country"].lower())
         print("\nSorted alphabetically by country name (A-Z).")
     elif sorting_choice == '2':
-        travel_data[category].sort(key=lambda x: x["country"].lower(), 
+        travel_data[category].sort(key=lambda x: x["country"].lower(),
                                   reverse=True)
         print("\nSorted alphabetically by country name (Z-A).")
     elif sorting_choice == '3':
