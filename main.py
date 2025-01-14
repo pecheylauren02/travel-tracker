@@ -71,8 +71,8 @@ def display_menu():
         ("\033[1;32m1. Add a country\033[0m"),
         ("\033[1;33m2. Delete a country\033[0m"),
         ("\033[1;35m3. Search for a country\033[0m"),
-        ("\033[1;36m4. Sort records alphabetically\033[0m"),
-        ("\033[1;37m5. Display all records\033[0m"),
+        ("\033[1;36m4. Sort your countries\033[0m"),
+        ("\033[1;37m5. Display all countries\033[0m"),
         ("\033[1;31m6. Exit\033[0m"),
     ]
 
@@ -145,7 +145,7 @@ def add_country():
             print("\nTry entering it again.")
         else:
             print(f"\nWell done! You have added {country}")
-            print(f"to your {category.capitalize()} countries.")
+            print(f"\nto your {category.capitalize()} countries.")
             break
 
     while True:
@@ -298,11 +298,11 @@ def sort_records():
         print("\nInvalid category. Use 'visited' or 'wishlist'.")
         return
 
-    print("\nChoose a sorting option:")
-    print("1. Alphabetically by country name (A-Z)")
-    print("2. Alphabetically by country name (Z-A)")
-    print("3. Ascending by date")
-    print("4. Descending by date")
+    print("\n\033[1;34mChoose a sorting option:\033[0m")
+    print("\033[1;32m1. Ascending order by country (A-Z)\033[0m")
+    print("\033[1;33m2. Descending order by country name (Z-A)\033[0m")
+    print("\033[1;36m3. Ascending order by date\033[0m")
+    print("\033[1;35m4. Descending order by date\033[0m")
 
     sorting_choice = input("\nEnter the number corresponding to your choice: ").strip()
     clear_terminal()
