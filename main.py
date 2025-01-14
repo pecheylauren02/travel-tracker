@@ -1,4 +1,17 @@
+"""
+This script manages travel data, allowing users to add, search, sort, and view countries 
+they've visited or wish to visit. It includes functionality for user input, validating 
+and storing country data, and providing options to sort or display records.
+
+Modules:
+- os: for interacting with the operating system
+- sys: for system-specific parameters and functions
+- re: for regular expression matching and operations
+- datetime: for working with date and time objects
+"""
+
 import os
+import sys
 import re
 from datetime import datetime
 
@@ -50,7 +63,7 @@ travel_data = {
     "wishlist": []
 }
 
-stored_age = None
+STORED_AGE = None
 
 
 def clear_terminal():
@@ -106,7 +119,7 @@ def add_country():
     Allows the user to add a country to their visited or wishlist category.
     Prompts for the country, category, age, and travel date with validations.
     """
-    global stored_age  # Remember the user's age across multiple calls
+    global STORED_AGE # Remember the user's age across multiple calls
     clear_terminal()
     print("\nYou are about to add a country to one of your lists. How exciting!")
 
@@ -119,18 +132,18 @@ def add_country():
         else:
             break
 
-    if category == "visited" and stored_age is None:
+    if category == "visited" and STORED_AGE is None:
         while True:
             age_input = input("\nPlease enter your age: ").strip()
 
-            if not age_input.isdigit() or not (1 <= int(age_input) <= 120):
+            if not age_input.isdigit() or not 1 <= int(age_input) <= 120:
                 print("\nPlease enter a valid age between 1 and 120.")
             else:
-                stored_age = int(age_input)
+                STORED_AGE = int(age_input)
                 break
 
     # Default to the stored age if available
-    age = stored_age if category == "visited" else None
+    age = STORED_AGE if category == "visited" else None
 
     today = datetime.now()
     min_year = today.year - (age or 0)  # Use age only if entered
@@ -169,17 +182,31 @@ def add_country():
             print("\nFor example: 12-12-2020")
             continue
 
+        # if min_date and date_obj < min_date:
+        #     print("\nYou cannot enter a date before the year you were born.")
+        #     continue
+        # elif category == "wishlist" and date_obj <= datetime.now():
+        #     print("\nPlease note: You can only add countries with a future date!")
+        #     continue
+        # elif category == "visited" and date_obj > datetime.now():
+        #     print("\nYou cannot enter a future date for a visited country.")
+        #     print("\nPlease enter a date in the past.")
+        #     continue
+        # else:
+        #     break
+
         if min_date and date_obj < min_date:
             print("\nYou cannot enter a date before the year you were born.")
             continue
-        elif category == "wishlist" and date_obj <= datetime.now():
+
+        if category == "wishlist" and date_obj <= datetime.now():
             print("\nPlease note: You can only add countries with a future date!")
             continue
-        elif category == "visited" and date_obj > datetime.now():
+
+        if category == "visited" and date_obj > datetime.now():
             print("\nYou cannot enter a future date for a visited country.")
             print("\nPlease enter a date in the past.")
             continue
-
         break
 
     travel_data[category].append({"country": country, "date": date})
@@ -233,7 +260,8 @@ def delete_country():
                         delete_country()
                         return
                     elif delete_another == 'no':
-                        go_to_menu = input("\nWould you like to go back to the main menu? (yes/no): ").strip().lower()
+                        go_to_menu = input("\nDo you want go back to the main menu? (yes/no): "
+                                           ).strip().lower()
 
                         if go_to_menu == 'yes':
                             display_menu()
@@ -243,8 +271,8 @@ def delete_country():
                             ("\nWould you like to exit the application? (yes/no): ").strip().lower()
 
                             if exit_confirmation == 'yes':
-                                print("\nThank you for using our application! Come back soon and add more to your exciting list!")
-                                exit()
+                                print("\nThank you for using our application! Come back soon!")
+                                sys.exit()
                             else:
                                 display_menu()
                                 return
@@ -266,20 +294,23 @@ def search_country():
     for category, records in travel_data.items():
         for record in records:
             if country.lower() in record["country"].lower():
-                print(f"\nYay! We found it in your {category.capitalize()} countries: {record['country']} (Date: {record['date']})")
+                print(f"\nYay! We found it in your {category.capitalize()} countries: ")
+                print(f"\n{record['country']} (Date: {record['date']}")
                 found = True
     if not found:
         print(f"\nIt appears that {country} is not in any of your lists.")
-        response = input(f"\nWould you like to add {country} to one of your lists? (yes/no): ").strip().lower()
+        response = input(f"\nWould you like to add {country} to one of your lists? (yes/no): "
+                        ).strip().lower()
         if response == 'yes':
             add_country()
         else:
-            response = input("\nWould you like to return to the main menu? (yes/no): ").strip().lower()
+            response = input("\nWould you like to return to the main menu? (yes/no): "
+                            ).strip().lower()
             if response == 'yes':
                 display_menu()
             else:
                 print("\nThank you for using our application! Come back soon!")
-                exit()
+                sys.exit()
 
 
 def sort_records():
@@ -335,10 +366,11 @@ def sort_records():
     if response == 'yes':
         print("Welcome back!")
     else:
-        exit_confirmation = input("\nWould you like to exit the application? (yes/no): ").strip().lower()
+        exit_confirmation = input("\nWould you like to exit the application? (yes/no): "
+                                 ).strip().lower()
         if exit_confirmation == 'yes':
             print("\nThank you for using our application! Come back soon!")
-            exit()
+            sys.exit()
         else:
             display_menu()
 
@@ -366,7 +398,8 @@ def display_records():
         print("\n\033[1;33mWishlist Countries:\033[0m No records yet!")
 
     while True:
-        choice = input("\nWould you like to add more countries to your records? (yes/no): ").strip().lower()
+        choice = input("\nWould you like to add more countries to your records? (yes/no): "
+                      ).strip().lower()
         if choice == "yes":
             add_country()
             return
@@ -399,7 +432,7 @@ def travel_tracker_app():
         elif choice == "6":
             print("\nThank you for using the Travel Tracker! 🌍\n")
             print("We hope your next adventure is unforgettable! 👋\n")
-            exit()
+            sys.exit()
         else:
             print("Invalid choice, please try again.")
 
