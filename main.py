@@ -66,7 +66,7 @@ def display_menu():
     Displays the main menu of the Travel Tracker application with formatted options.
     """
     menu_border = "=" * 50
-    title = "Welcome to the Travel Tracker Application"
+    title = "Welcome to the Travel Tracker Application 🌍"
     options = [
         ("\033[1;32m1. Add a country\033[0m"),
         ("\033[1;33m2. Delete a country\033[0m"),
@@ -292,11 +292,13 @@ def sort_records():
     """
     clear_terminal()
     print("\nYou chose to sort records.")
-    category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
 
-    if category not in travel_data:
+    # Loop until the user enters a valid category
+    while True:
+        category = input("\nEnter the category to sort (visited/wishlist): ").strip().lower()
+        if category in travel_data:
+            break
         print("\nInvalid category. Use 'visited' or 'wishlist'.")
-        return
 
     print("\n\033[1;34mChoose a sorting option:\033[0m")
     print("\033[1;32m1. Ascending order by country (A-Z)\033[0m")
@@ -309,19 +311,15 @@ def sort_records():
 
     # Sort based on user's choice
     if sorting_choice == '1':
-        # Sort alphabetically by country name (A-Z)
         travel_data[category].sort(key=lambda x: x["country"].lower())
         print("\nSorted alphabetically by country name (A-Z).")
     elif sorting_choice == '2':
-        # Sort alphabetically by country name (Z-A)
         travel_data[category].sort(key=lambda x: x["country"].lower(), reverse=True)
         print("\nSorted alphabetically by country name (Z-A).")
     elif sorting_choice == '3':
-        # Sort ascending by date
         travel_data[category].sort(key=lambda x: x["date"])
         print("\nSorted by date (ascending).")
     elif sorting_choice == '4':
-        # Sort descending by date
         travel_data[category].sort(key=lambda x: x["date"], reverse=True)
         print("\nSorted by date (descending).")
     else:
@@ -405,7 +403,7 @@ def travel_tracker_app():
         elif choice == "6":
             print("\nThank you for using the Travel Tracker! 🌍\n")
             print("We hope your next adventure is unforgettable! 👋\n")
-            break
+            exit()
         else:
             print("Invalid choice, please try again.")
 
