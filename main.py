@@ -367,7 +367,7 @@ def sort_records():
     if sorting_choice in sort_functions:
         key_func, reverse, order = sort_functions[sorting_choice]
         travel_data[category].sort(key=key_func, reverse=reverse)
-        print(f"\nSorted alphabetically by country name ({order}).")
+        print(f"\nSorted ({order}).")
     else:
         print("\nInvalid choice. Returning to the main menu.")
         display_menu()

@@ -42,7 +42,6 @@ There is no formal installation required to use the application. Just follow the
 4. Run the script using Python:
    - `python3 main.py`
 
-
 ## Features
 
 ### Existing Features
@@ -50,9 +49,13 @@ There is no formal installation required to use the application. Just follow the
 #### Display Menu
 - When the user first starts the application, they will be presented with a display menu. This menu displays all of the options to start their travel journey (see below). The user needs to enter a number between 1-6 to start the application. 
 
+<details><summary>Screenshots</summary>
 
+<img src="docs/images/display_menu.png">
 
+_Display Menu_
 
+</details>
 
 #### Add a Country:
 - When prompted, the user enters the country they want to add to their "visited" or "wishlist" category.
@@ -60,35 +63,76 @@ There is no formal installation required to use the application. Just follow the
 - The application will validate the entered country, age (if applicable), and travel date.
 - The date format should be in `dd-mm-yyyy`.
 
+<details><summary>Screenshots</summary>
 
+<img src="docs/images/add_country.png">
+
+_Add a visited country_
+
+<img src="docs/images/add_country_wishlist.png">
+
+_Add a wishlist country_
+
+</details>
 
 ### Delete a Country:
 - The user can remove a country from either their "visited" or "wishlist" list by entering the country name.
 - A confirmation will be requested to ensure the correct deletion.
 - The user can also return back to the main menu or continue deleting more countries. 
 
+<details><summary>Screenshots</summary>
+
+<img src="docs/images/instructions.png">
+
+Delete a country_
+
+</details>
 
 ### Search for a Country:
 - Once they have added some countries, the user can search for a country in their records. If it is not found, they can choose to add it to their lists.
 
+<details><summary>Screenshots</summary>
 
+<img src="docs/images/instructions.png">
+
+Search for a country_
+
+</details>
 
 ### Sort Countries:
 - This feature will allow the user to organize the countries in their lists alphabetically.
 - They have four options: alphabetically (A-Z), alphabetically (Z-A), by date (oldest to most recent) or by date (most recent to oldest).
 
+<details><summary>Screenshots</summary>
 
+<img src="docs/images/instructions.png">
+
+_Sort countries_
+
+</details>
 
 ### Display All Countries:
 - If the user selects 5, they can view the entire list of countries in both the "visited" and "wishlist" categories.
 
+<details><summary>Screenshots</summary>
 
+<img src="docs/images/instructions.png">
+
+_Display all countries_
+
+</details>
 
 ### Exit:
-- If the use selects 6, they will exit the application when done.
+- If the use selects 6, they will exit the application when done and be shown a success message.
 - They can also exit the application after completing other tasks and will be prompted to do so. 
 
+<details><summary>Screenshots</summary>
 
+<img src="docs/images/instructions.png">
+
+_Exit the application_
+
+</details>
 
 ## Input Validations
 
@@ -97,6 +141,14 @@ There is no formal installation required to use the application. Just follow the
 - **Date**: The travel date must be entered in the `dd-mm-yyyy` format. The application also ensures that:
   - For "visited" countries, the date *cannot* be in the future.
   - For "wishlist" countries, the date *must* be in the future.
+
+<details><summary>Screenshots</summary>
+
+<img src="docs/images/instructions.png">
+
+_Validation messages_
+
+</details>
 
 ### Future Features
 
@@ -161,6 +213,14 @@ The testing process confirmed that the following aspects were thoroughly covered
 - Functional requirements of the application.
 - Input validation and edge cases.
 - Code readability and consistency with the help of Pylint and Flake8.
+
+<details><summary>Screenshots</summary>
+
+<img src="docs/images/instructions.png">
+
+_Flake8 results showing no errors_
+
+</details>
 
 ## Conclusion
 
