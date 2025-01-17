@@ -4,16 +4,6 @@
 
 The Travel Tracker Application is an interactive tool designed to help users manage and organize their travel experiences. With this app, users can keep track of the countries they have visited and the destinations they wish to visit in the future. 
 
-### Key Features:
-- **Add a Country**: Add countries to either the "visited" or "wishlist" categories, along with additional details like travel dates and age (if applicable).  
-- **Delete a Country**: Remove entries from your "visited" or "wishlist" lists with confirmation for safe deletion.  
-- **Search for a Country**: Quickly locate specific countries in your records.  
-- **Sort Countries**: Organise your country lists alphabetically or by date for easier navigation.  
-- **Display All Countries**: View a comprehensive list of all your recorded countries in both categories.  
-- **Input Validation**: Ensures all data, such as country names, ages, and travel dates, meet predefined criteria for accuracy and consistency.
-
-This user-friendly application is perfect for travel enthusiasts who want to keep track of their past adventures and future aspirations in a simple and efficient way.
-
 ### Languages & Tools
 - [ Jupyter Notebook using Python](https://en.wikipedia.org/wiki/Python_(programming_language))
    - Python 3.16.2 was used to build the entire application through Jupyter Notebook
