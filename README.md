@@ -118,7 +118,7 @@ _Sort by date_
 
 <details><summary>Screenshots</summary>
 
-<img src="docs/images/instructions.png">
+<img src="docs/images/display_records.png">
 
 _Display all countries_
 
@@ -130,7 +130,7 @@ _Display all countries_
 
 <details><summary>Screenshots</summary>
 
-<img src="docs/images/instructions.png">
+<img src="docs/images/exit_app.png">
 
 _Exit the application_
 
@@ -188,7 +188,7 @@ The application has been manually tested to validate each user story, ensuring t
 All test cases have been thoroughly validated, ensuring a seamless and reliable user experience.
 
 ### Pylint
-The code was analyzed using **Pylint** to check for any coding standard violations, errors, or warnings. Pylint ensures that the code follows the PEP 8 guidelines and is maintainable. Majority of the errors were dealt with and resolved. The remainder can be justified as per below:
+The code was analyzed using **Pylint** to check for any coding standard violations, errors, or warnings. Pylint ensures that the code follows the PEP 8 guidelines and is maintainable. The pylinter gave an overall score of 9.82/10, which is considered high. The remainder can be justified as per below:
 
 #### Justification for Remaining Code Issues
 
@@ -206,6 +206,14 @@ The above issues were acknowledged during the development process, and their inc
 - Adherence to pure Python and Jupyter Notebook constraints, which limited advanced structural refactoring options.
 - Focus on functionality and user experience within the scope of the project.
 
+<details><summary>Screenshots</summary>
+
+<img src="docs/images/pylint1.png">
+
+_Pylint results_
+
+</details>
+
 ### Flake8
 **Flake8** was used to check the Python code for compliance with style guides and to detect any errors or inconsistencies in the code structure. No errors remain in the code.
 
@@ -216,7 +224,7 @@ The testing process confirmed that the following aspects were thoroughly covered
 
 <details><summary>Screenshots</summary>
 
-<img src="docs/images/instructions.png">
+<img src="docs/images/flake8.png">
 
 _Flake8 results showing no errors_
 
