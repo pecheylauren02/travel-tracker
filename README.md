@@ -2,31 +2,31 @@
 
 ## Overview
 
-The Travel Tracker Application is a Python-based console program designed to help users manage and track their travel experiences. It allows users to add countries they have visited or countries they wish to visit to their travel records. The application includes features for sorting, searching, and deleting countries from the lists, as well as validating input to ensure accuracy.
+The Travel Tracker Application is an interactive tool designed to help users manage and organize their travel experiences. With this app, users can keep track of the countries they have visited and the destinations they wish to visit in the future. 
 
-This program is structured to work with the user's travel records by providing them the ability to interact with a simple menu-driven interface. It utilizes several modules such as `os`, `sys`, `re`, and `datetime` for system operations, input validation, and date handling.
+### Key Features:
+- **Add a Country**: Add countries to either the "visited" or "wishlist" categories, along with additional details like travel dates and age (if applicable).  
+- **Delete a Country**: Remove entries from your "visited" or "wishlist" lists with confirmation for safe deletion.  
+- **Search for a Country**: Quickly locate specific countries in your records.  
+- **Sort Countries**: Organise your country lists alphabetically or by date for easier navigation.  
+- **Display All Countries**: View a comprehensive list of all your recorded countries in both categories.  
+- **Input Validation**: Ensures all data, such as country names, ages, and travel dates, meet predefined criteria for accuracy and consistency.
 
-## Features
+This user-friendly application is perfect for travel enthusiasts who want to keep track of their past adventures and future aspirations in a simple and efficient way.
 
-- **Add a Country**: Allows users to add a country to either their "visited" or "wishlist" categories.
-- **Delete a Country**: Enables users to delete countries from either category with confirmation prompts.
-- **Search for a Country**: Users can search for a country in their lists and add it if not already present.
-- **Sort Countries**: Organize countries in the list by name.
-- **Display All Countries**: View all countries across both categories.
-- **Age and Date Validation**: Ensures that the user’s age and the travel date are valid and appropriate for each category.
+### Languages & Tools
+- [ Jupyter Notebook using Python](https://en.wikipedia.org/wiki/Python_(programming_language))
+   - Python 3.16.2 was used to build the entire application through Jupyter Notebook
+- [Lucid Flowchart](https://www.lucidchart.com/pages/)
+     - Lucid Flowchart was used to map the logic of the Mad Libs game during the initial design process.
+- [Git](https://git-scm.com/)
+    - Git was used for version control via GitPod, by using the terminal to Git and Push to GitHub.
+- [GitHub](https://github.com/)
+    - GitHub was used to store the project code after being created in GitPod/Git.
+- [Gitpod](https://www.gitpod.io/)
+    - Gitpod was used to create, edit and preview the project's code.
 
-## Prerequisites
-
-This application is written in Python and uses the following Python modules:
-
-- `os`: for interacting with the operating system (e.g., clearing the terminal).
-- `sys`: for system-specific parameters and functions.
-- `re`: for regular expression matching and operations.
-- `datetime`: for working with date and time objects.
-
-Ensure you have Python 3.12.6 installed on your system to run the application.
-
-## Installation
+#### Installation
 
 There is no formal installation required to use the application. Just follow these steps:
 
@@ -42,97 +42,127 @@ There is no formal installation required to use the application. Just follow the
 4. Run the script using Python:
    - `python3 main.py`
 
-## How to Use
 
-### Running the Application
-After running the script, you will be presented with a menu of options to choose from:
-- Add a country
-- Delete a country
-- Search for a country
-- Sort your countries
-- Display all countries
-- Exit
+## Features
+
+### Existing Features
+
+#### Display Menu
+- When the user first starts the application, they will be presented with a display menu. This menu displays all of the options to start their travel journey (see below). The user needs to enter a number between 1-6 to start the application. 
 
 
 
-### Add a Country:
-- When prompted, enter the country you want to add to your "visited" or "wishlist" category.
-- You will also need to input your age if adding to the "visited" category for the first time.
+
+
+#### Add a Country:
+- When prompted, the user enters the country they want to add to their "visited" or "wishlist" category.
+- They will also need to input their age if adding to the "visited" category for the first time.
 - The application will validate the entered country, age (if applicable), and travel date.
 - The date format should be in `dd-mm-yyyy`.
 
 
 
 ### Delete a Country:
-- You can remove a country from either your "visited" or "wishlist" list by entering the country name.
+- The user can remove a country from either their "visited" or "wishlist" list by entering the country name.
 - A confirmation will be requested to ensure the correct deletion.
-
+- The user can also return back to the main menu or continue deleting more countries. 
 
 
 ### Search for a Country:
-- Search for a country in your records. If it is not found, you can choose to add it to your lists.
+- Once they have added some countries, the user can search for a country in their records. If it is not found, they can choose to add it to their lists.
 
 
 
 ### Sort Countries:
-- This feature will allow you to organize the countries in your lists alphabetically.
+- This feature will allow the user to organize the countries in their lists alphabetically.
+- They have four options: alphabetically (A-Z), alphabetically (Z-A), by date (oldest to most recent) or by date (most recent to oldest).
 
 
 
 ### Display All Countries:
-- View the entire list of countries in both the "visited" and "wishlist" categories.
+- If the user selects 5, they can view the entire list of countries in both the "visited" and "wishlist" categories.
 
 
 
 ### Exit:
-- Exit the application when done.
+- If the use selects 6, they will exit the application when done.
+- They can also exit the application after completing other tasks and will be prompted to do so. 
 
 
 
 ## Input Validations
 
 - **Country**: The application validates the country against a predefined list of valid countries. If the entered country is not on the list, the user will be prompted to re-enter it.
-- **Age**: The application asks for the user's age when adding a country to the "visited" list for the first time. The age must be a number between 1 and 120.
+- **Age**: The application asks for the user's age when adding a country to the "visited" list for the first time. The age must be a number between 1 and 120. This ensures that the user does not enter an impossible age, such as a negative number (below 0) or above 120.
 - **Date**: The travel date must be entered in the `dd-mm-yyyy` format. The application also ensures that:
-  - For "visited" countries, the date cannot be in the future.
-  - For "wishlist" countries, the date must be in the future.
+  - For "visited" countries, the date *cannot* be in the future.
+  - For "wishlist" countries, the date *must* be in the future.
 
-## Example Usage
+### Future Features
 
-### Menu:
+#### Integration with Maps API
+   - **Feature**: Display countries on an interactive map using APIs like Google Maps or OpenStreetMap.  
+   - **Challenge**: API integration and dynamic map rendering require internet connectivity and external modules, which were outside the project's constraints.
 
-
-## Data Storage
-
-Travel records are stored in-memory during the session. If you wish to persist data between sessions, you would need to implement file handling (e.g., saving to a CSV or database) to store and retrieve the data.
-
-## Customization
-
-Feel free to modify the `valid_countries` list to include additional countries or adjust the age and date validation rules to suit your needs.
+#### Data Storage
+   - **Feature**: Save travel records to a database or file (e.g., SQLite or CSV) for long-term storage and retrieval between sessions.  
+   - **Challenge**: Implementing this feature would require integrating external libraries or frameworks, which was beyond the scope of this project.
 
 ## Testing
 
-To ensure the application is working correctly and follows best practices, thorough testing has been performed, including:
+To ensure the application was working correctly and followed best practices, thorough testing was performed, including:
 
-### Manual User Story Testing
+### User Testing
+
 The application has been manually tested to validate each user story, ensuring the following functionalities work as expected:
 - Adding, deleting, searching, and sorting countries.
 - Proper input validation for countries, ages, and travel dates.
 - User-friendly interactions via the terminal.
 
+| **Test Case**                 | **Description**                                                  | **Expected Result**                                                                 | **Outcome**           | **Status**   |
+|-------------------------------|------------------------------------------------------------------|------------------------------------------------------------------------------------|-----------------------|--------------|
+| Add a country to "visited"    | User adds a valid country to the "visited" list.                | Country is added with valid age and date, displayed in the "visited" list.         | Functioned as expected | ✅ Passed    |
+| Add a country to "wishlist"   | User adds a valid country to the "wishlist" list.               | Country is added with a valid future date, displayed in the "wishlist" list.       | Functioned as expected | ✅ Passed    |
+| Delete a country              | User deletes a country from either "visited" or "wishlist."     | Country is removed after confirmation and no longer displayed in the respective list. | Functioned as expected | ✅ Passed    |
+| Search for a country          | User searches for a country in the lists.                      | If found, the country and its details are displayed; otherwise, prompted to add it. | Functioned as expected | ✅ Passed    |
+| Sort countries                | User sorts the lists alphabetically.                           | Countries in both "visited" and "wishlist" lists are sorted correctly.             | Functioned as expected | ✅ Passed    |
+| Input validation (countries)  | User enters an invalid or unrecognized country.                | Application rejects the input and prompts the user to re-enter a valid country.    | Functioned as expected | ✅ Passed    |
+| Input validation (ages)       | User enters an invalid age (e.g., non-numeric or out of range).| Application rejects the input and prompts the user to enter a valid age.          | Functioned as expected | ✅ Passed    |
+| Input validation (dates)      | User enters an invalid date format or inappropriate date.      | Application rejects the input and prompts the user to enter a valid date.          | Functioned as expected | ✅ Passed    |
+| Exit application              | User exits the application via the menu.                      | Application terminates gracefully without errors.                                  | Functioned as expected | ✅ Passed    |
+
+All test cases have been thoroughly validated, ensuring a seamless and reliable user experience.
+
 ### Pylint
-The code was analyzed using **Pylint** to check for any coding standard violations, errors, or warnings. Pylint ensures that the code follows the PEP 8 guidelines and is maintainable.
+The code was analyzed using **Pylint** to check for any coding standard violations, errors, or warnings. Pylint ensures that the code follows the PEP 8 guidelines and is maintainable. Majority of the errors were dealt with and resolved. The remainder can be justified as per below:
+
+#### Justification for Remaining Code Issues
+
+While the application has been thoroughly tested and reviewed for code quality, the following warnings/errors were left unresolved due to specific constraints or design decisions:
+
+| **Error/Warning**                               | **Description**                                                                                         | **Justification**                                                                                 |
+|-------------------------------------------------|---------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| `W0603: Using the global statement (global-statement)` | A `global` statement was used to share variables across functions.                                      | This was a necessary design choice to maintain simplicity and ensure ease of data sharing in a pure Python script. Using alternative solutions, such as refactoring into classes, was not feasible within the scope of the project. |
+| `R1724: Unnecessary "else" after "continue"`    | The "else" block after a "continue" statement is redundant and can be removed.                         | The current structure improves readability by clearly separating conditional branches. While not optimal, it aligns with the educational context of the project. |
+| `R1723: Unnecessary "elif" after "break"`       | The "elif" block following a "break" statement is redundant and can be simplified.                     | This structure was retained to enhance clarity, particularly for users unfamiliar with nested conditionals, as clarity was prioritized over adherence to this specific rule. |
+| `R0912: Too many branches (14/12)`              | The function exceeds the recommended number of branches (12).                                           | Refactoring to reduce branches would have introduced unnecessary complexity or disrupted the logical flow. Given the educational context, maintaining readability and simplicity for new programmers was a priority. |
+
+The above issues were acknowledged during the development process, and their inclusion is deliberate. The design choices were made to prioritize:
+- Readability and clarity for users with varying levels of programming experience.
+- Adherence to pure Python and Jupyter Notebook constraints, which limited advanced structural refactoring options.
+- Focus on functionality and user experience within the scope of the project.
+
+These issues can be addressed in future iterations by incorporating modular design patterns, object-oriented programming, or external libraries, which were beyond the current project's scope.
 
 ### Flake8
 **Flake8** was used to check the Python code for compliance with style guides and to detect any errors or inconsistencies in the code structure.
 
-### Coverage
 The testing process confirmed that the following aspects were thoroughly covered:
 - Functional requirements of the application.
 - Input validation and edge cases.
 - Code readability and consistency with the help of Pylint and Flake8.
 
-If you would like to run the tests yourself or add new tests, you can run **Pylint** and **Flake8** via the following commands:
+ like to run the tests yourself or add new tests, you can run **Pylint** and **Flake8** via the following commands:
 
 - To run Pylint:
   ```bash
