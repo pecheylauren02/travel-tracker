@@ -206,8 +206,6 @@ The above issues were acknowledged during the development process, and their inc
 - Adherence to pure Python and Jupyter Notebook constraints, which limited advanced structural refactoring options.
 - Focus on functionality and user experience within the scope of the project.
 
-These issues can be addressed in future iterations by incorporating modular design patterns, object-oriented programming, or external libraries, which were beyond the current project's scope.
-
 ### Flake8
 **Flake8** was used to check the Python code for compliance with style guides and to detect any errors or inconsistencies in the code structure. No errors remain in the code.
 
