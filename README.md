@@ -58,7 +58,7 @@ _Display Menu_
 </details>
 
 #### Add a Country:
-- When prompted, the user enters the country they want to add to their "visited" or "wishlist" category.
+- When prompted, the user enters 1, and is then allowed to enter the country they want to add to their "visited" or "wishlist" category.
 - They will also need to input their age if adding to the "visited" category for the first time.
 - The application will validate the entered country, age (if applicable), and travel date.
 - The date format should be in `dd-mm-yyyy`.
@@ -82,7 +82,7 @@ _Add a wishlist country_
 
 <details><summary>Screenshots</summary>
 
-<img src="docs/images/instructions.png">
+<img src="docs/images/delete_country.png">
 
 Delete a country_
 
@@ -93,21 +93,33 @@ Delete a country_
 
 <details><summary>Screenshots</summary>
 
-<img src="docs/images/instructions.png">
+<img src="docs/images/search_country.png">
 
 Search for a country_
 
 </details>
 
 ### Sort Countries:
-- This feature will allow the user to organize the countries in their lists alphabetically.
+- If the user selects 4, this feature will allow them to organize the countries in their lists alphabetically.
 - They have four options: alphabetically (A-Z), alphabetically (Z-A), by date (oldest to most recent) or by date (most recent to oldest).
 
 <details><summary>Screenshots</summary>
 
-<img src="docs/images/instructions.png">
+<img src="docs/images/sort_menu.png">
 
-_Sort countries_
+_Sort menu
+
+<img src="docs/images/sort_a-z.png">
+
+_Sort A-Z_
+
+<img src="docs/images/sort_z-a.png">
+
+_Sort Z-A_
+
+<img src="docs/images/sort_date.png">
+
+_Sort by date_
 
 </details>
 
