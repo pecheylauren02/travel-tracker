@@ -155,18 +155,12 @@ The above issues were acknowledged during the development process, and their inc
 These issues can be addressed in future iterations by incorporating modular design patterns, object-oriented programming, or external libraries, which were beyond the current project's scope.
 
 ### Flake8
-**Flake8** was used to check the Python code for compliance with style guides and to detect any errors or inconsistencies in the code structure.
+**Flake8** was used to check the Python code for compliance with style guides and to detect any errors or inconsistencies in the code structure. No errors remain in the code.
 
 The testing process confirmed that the following aspects were thoroughly covered:
 - Functional requirements of the application.
 - Input validation and edge cases.
 - Code readability and consistency with the help of Pylint and Flake8.
-
- like to run the tests yourself or add new tests, you can run **Pylint** and **Flake8** via the following commands:
-
-- To run Pylint:
-  ```bash
-  pylint main.py
 
 ## Conclusion
 
