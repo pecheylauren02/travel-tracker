@@ -144,14 +144,6 @@ _Exit the application_
   - For "visited" countries, the date *cannot* be in the future.
   - For "wishlist" countries, the date *must* be in the future.
 
-<details><summary>Screenshots</summary>
-
-<img src="docs/images/instructions.png">
-
-_Validation messages_
-
-</details>
-
 ### Future Features
 
 #### Integration with Maps API
